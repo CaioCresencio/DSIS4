@@ -16,23 +16,4 @@
         <edicao>10</edicao>
         <editora>Pearson Prentice Hall</editora>
     </obra>
-    <obra>
-    <isbn>...</isbn>
-    <titulo>...</titulo>
-    <categoria>...</categoria>
-    <autores>
-    <autor>...</autor>
-    <autor>...</autor>
-     <!--  ...  -->
-    </autores>
-    <palavras-chave>
-    <palavra-chave>...</palavra-chave>
-    <palavra-chave>...</palavra-chave>
-     <!--  ...  -->
-    </palavras-chave>
-    <data>...</data>
-    <edicao>...</edicao>
-    <editora>...</editora>
-    </obra>
-     <!--  ...  -->
 </obras>
