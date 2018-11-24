@@ -34,7 +34,7 @@ public class ObraDAO {
                     pStat.setDate(4,java.sql.Date.valueOf(o.getDataPublicacao()) );
                     pStat.setString(5,o.getEditora());
                     pStat.setString(6, o.getTitulo());
-                    pStat.setInt(7, o.getCategoria());
+                    pStat.setInt(7, o.getCategoria().getCodigoCategoria());
                     pStat.executeUpdate();
 
                     int id_obra = getPKObra(pStat,con);
