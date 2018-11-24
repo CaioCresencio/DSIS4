@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<obras>
+    <obra>
+        <isbn>9788543004792</isbn>
+        <titulo>Java: como programar</titulo>
+        <categoria>livro</categoria>
+        <autores>
+            <autor>Paul Deitel</autor>
+            <autor>Harvey Deitel</autor>
+        </autores>
+        <palavras-chave>
+            <palavra-chave>Java</palavra-chave>
+            <palavra-chave>Linguagem de programação de computador</palavra-chave>
+        </palavras-chave>
+        <data>30/09/2016</data>
+        <edicao>10</edicao>
+        <editora>Pearson Prentice Hall</editora>
+    </obra>
+    <obra>
+    <isbn>...</isbn>
+    <titulo>...</titulo>
+    <categoria>...</categoria>
+    <autores>
+    <autor>...</autor>
+    <autor>...</autor>
+     <!--  ...  -->
+    </autores>
+    <palavras-chave>
+    <palavra-chave>...</palavra-chave>
+    <palavra-chave>...</palavra-chave>
+     <!--  ...  -->
+    </palavras-chave>
+    <data>...</data>
+    <edicao>...</edicao>
+    <editora>...</editora>
+    </obra>
+     <!--  ...  -->
+</obras>

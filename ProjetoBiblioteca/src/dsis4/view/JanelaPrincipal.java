@@ -79,11 +79,12 @@ public class JanelaPrincipal extends JFrame{
     }
     
     public void abrirJanelaCadastro(ActionEvent e){
-        JanelaCadastro jc = new JanelaCadastro();
+        JanelaCadastro jc = new JanelaCadastro("Janela de cadastro");
         carregarJanela(jc);
     }
     public void abrirJanelaCarregar(ActionEvent e){
-        
+        JanelaCarregamento jc = new JanelaCarregamento("Carregamento");
+        carregarJanela(jc);
     }
     public void abrirJanelaEmprestimo(ActionEvent e){
         
@@ -100,14 +101,14 @@ public class JanelaPrincipal extends JFrame{
     
     private void configurarJanela(){
         setVisible(true);
-        setSize(1200,800);
+        setSize(1200,1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
-    public void carregarJanela(JInternalFrame janela){
+    public void carregarJanela(JanelaPadrao janela){
         desktop.add(janela);
-        desktop.moveToFront(menu);
+        desktop.moveToFront(janela);
     }
     
 }

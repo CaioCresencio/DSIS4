@@ -5,28 +5,28 @@
  */
 package dsis4.view;
 
-import com.toedter.calendar.JCalendar;
-import java.awt.Container;
+import com.toedter.calendar.JDateChooser;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author caio
  */
-public class JanelaCadastro extends JInternalFrame {
+public class JanelaCadastro extends JanelaPadrao{
     private JPanel painel;
     private JPanel painelPrincipal;
     private JPanel painel2;
+    private JPanel painel3;
     private JLabel label_isbn;
     private JTextField ISBN;
     private JLabel label_titulo;
@@ -41,23 +41,53 @@ public class JanelaCadastro extends JInternalFrame {
     private JTextField numeroExemplares;
     private JLabel label_editora;
     private JTextField editora;
-    private JLabel background;
     
+    private JTextField fieldAutores;
+    private JLabel labelAutores;
+
+    private JTextField fieldPc;
+    private JLabel labelPc;
+    
+    private JButton botaoAutor;
+    private JButton botaoPc;
     private JButton botao;
     
-    private GridBagLayout layout;
-    private GridBagConstraints constraints;
-    //categoria
-    private JCalendar calendario;
+    private JLabel labelCalendario;
+    private JDateChooser calendario;
     
-    public JanelaCadastro(){
-        super("Janela de cadastro",true,true,true,true);
-        configurarJanela();
+    private JTable tabelaAutor;
+    private JTable tabelaPc;
+    
+    private JScrollPane barraRolagem;
+    private JScrollPane barraRolagemPc;
+    private JScrollPane barraTudo;
+    
+    private DefaultTableModel modelo ;
+    private DefaultTableModel modeloPc;
+    
+   
+    
+    
+    public JanelaCadastro(String titulo){
+        super(titulo);
         carregarJanela();
+        carregarComponentes();
+        setSize(1000,800);
     }
+    
     private void carregarJanela(){
-        layout = new GridBagLayout();
-        constraints = new GridBagConstraints();
+        
+        modelo = new DefaultTableModel();
+        modeloPc = new DefaultTableModel();
+        
+        tabelaAutor = new JTable(modelo);
+        tabelaPc = new JTable(modeloPc);
+        tabelaAutor.setEnabled(false);
+        modelo.addColumn("Nome do autor");
+        modeloPc.addColumn("Palavra chave");
+        
+        labelPc = new JLabel("Palavras chave");     
+        fieldPc = new JTextField(10);
         
         label_isbn = new JLabel("ISBN:");
         label_titulo = new JLabel("Titulo:");
@@ -66,6 +96,10 @@ public class JanelaCadastro extends JInternalFrame {
         label_nrmEdicao = new JLabel("Numero de edição:");
         label_nrmExemplares = new JLabel("Numero de exemplares:");
         label_editora = new JLabel("Editora:");
+        labelCalendario = new JLabel("Data publicação:");
+        labelAutores = new JLabel("Adicionar autores:");
+        
+        fieldAutores = new JTextField(10);
         ISBN = new JTextField(10);
         titulo = new JTextField(10);
         palavras_chave = new JTextField(15);
@@ -74,21 +108,42 @@ public class JanelaCadastro extends JInternalFrame {
         numeroExemplares = new JTextField(10);
         editora = new JTextField(10);
         
-        painelPrincipal = new JPanel(layout);
+        tabelaAutor.setFillsViewportHeight(true);
+        tabelaPc.setFillsViewportHeight(true);
+        
+        painelPrincipal = new JPanel(super.layout);
         painel = new JPanel();
-        painel.setLayout(layout);
+        painel.setLayout(super.layout);
         painel2 = new JPanel();
-        painel2.setLayout(layout);
+        painel2.setLayout(super.layout);
+        painel3 = new JPanel();
+        painel3.setLayout(layout);
         
+        barraRolagem = new JScrollPane(tabelaAutor);
         
-        calendario = new JCalendar();
-        botao = new JButton("Cadastrar");
+        ImageIcon icon = new ImageIcon("imgs/icon_cadastro.png");
+        
+        calendario = new JDateChooser();
+        botao = new JButton("Cadastrar",icon);
         botao.addActionListener(this::cadastraObra);
+        
+        botaoAutor =new JButton("Cadastrar autor",icon);
+        botaoAutor.addActionListener(this::registraAutor);
+        
+        botaoPc = new JButton("Cadastrar Palavra chave",icon);
+        botaoPc.addActionListener(this::registraPc);
         
         javax.swing.border.Border border = BorderFactory.createEtchedBorder();
         painel2.setBorder(border);
         painel.setBorder(border);
+        painel3.setBorder(border);
         
+        barraRolagem = new JScrollPane(tabelaAutor);
+        barraRolagemPc = new JScrollPane(tabelaPc);
+        barraTudo = new JScrollPane(painelPrincipal);
+
+    }
+    private void carregarComponentes(){
         adicionarComponente(label_isbn, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
         adicionarComponente(ISBN, 0,1, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
         adicionarComponente(label_titulo, 1,0, GridBagConstraints.WEST, 2, 1,GridBagConstraints.BOTH, painel);
@@ -103,43 +158,49 @@ public class JanelaCadastro extends JInternalFrame {
         adicionarComponente(numeroExemplares, 1,3, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
         adicionarComponente(label_editora, 2,2, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
         adicionarComponente(editora, 2,3, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
+        adicionarComponente(labelCalendario, 3,2, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel);
+        adicionarComponente(calendario, 3,3, GridBagConstraints.SOUTH, 1,1,GridBagConstraints.BOTH, painel);
         
         adicionarComponente(painel, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painelPrincipal);
         
         adicionarComponente(botao, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painel2);
-        adicionarComponente(painel2, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painelPrincipal);
+        adicionarComponente(painel2, 2,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painelPrincipal);
         
-        adicionarComponente(painelPrincipal, 4,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, this);
+        adicionarComponente(labelAutores, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(fieldAutores, 1,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(botaoAutor, 3,0, GridBagConstraints.CENTER, 2, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(barraRolagem, 2,0, GridBagConstraints.CENTER, 2, 1,GridBagConstraints.BOTH, painel3);
         
+        adicionarComponente(labelPc, 1,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(fieldPc, 1,3, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(botaoPc, 3,2, GridBagConstraints.CENTER, 2, 1,GridBagConstraints.BOTH, painel3);
+        adicionarComponente(barraRolagemPc, 2,2, GridBagConstraints.CENTER, 2, 1,GridBagConstraints.BOTH, painel3);
         
+        adicionarComponente(painel3, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, painelPrincipal);
+        
+        adicionarComponente(barraTudo, 4,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH, this); 
     }
     
     private void cadastraObra(ActionEvent e){
         System.out.println(calendario.getDate());
     }
- 
-    private void adicionarComponente(JComponent component, int linha, int coluna, int posicao, int colunas, int linhas, int preenche, Container painel){
-        constraints.gridy = linha;
-        constraints.gridx = coluna;
-        constraints.insets = new Insets(10,10,10,10);
-        
-        constraints.gridwidth = colunas;
-        constraints.gridheight = linhas;
-        constraints.anchor = posicao;
-        constraints.fill = preenche;
-        
-        //component.setFont(new Font("Arial",Font.PLAIN,20));
-        
-        layout.setConstraints(component,constraints);
-        
-        painel.add(component);
-        
-    }
-    private void configurarJanela(){
-        setVisible(true);
-        setSize(800,600);
-        //pack();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     
+    private void registraPc(ActionEvent e){
+        Object[] linha = new Object[1];
+        String conteudo = fieldPc.getText();
+        if(conteudo != null){
+            linha[0] = conteudo;
+            modeloPc.addRow(linha);
+        }
     }
+    private void registraAutor(ActionEvent e){
+        Object[] linha = new Object[1];
+        String conteudo = fieldAutores.getText();
+        if(conteudo != null){
+            linha[0] = conteudo;
+            modelo.addRow(linha);
+        }
+        
+    }
+
 }
