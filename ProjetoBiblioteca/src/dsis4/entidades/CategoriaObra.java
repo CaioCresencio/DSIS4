@@ -5,13 +5,18 @@
  */
 package dsis4.entidades;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  *
  * @author caio
  */
+
 public class CategoriaObra {
-    
+    @XmlTransient
     private int codigoCategoria;
+    
     private String descricao;
     
     public CategoriaObra(int codigoCategoria, String descricao){
@@ -21,7 +26,8 @@ public class CategoriaObra {
     public CategoriaObra(String descricao){
         this.descricao = descricao;
     }
-
+    
+    public CategoriaObra(){};
 
     public int getCodigoCategoria() {
         return codigoCategoria;
@@ -41,5 +47,11 @@ public class CategoriaObra {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
+    
     
 }

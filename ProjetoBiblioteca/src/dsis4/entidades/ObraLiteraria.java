@@ -5,25 +5,74 @@
  */
 package dsis4.entidades;
 
+import dsis4.xml.DataAdapter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
  * @author caio
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+
+//@XmlType(propOrder = {"isbn","titulo","categoria","autores","palavras-chave","data","edicao","editora"})
+
 public class ObraLiteraria {
+    @XmlTransient
     private int idObra;
+    
+    @XmlElement(name = "isbn")
     private String isbn;
+    
+    @XmlTransient
     private int qtdExemplares;
+    
+    @XmlElement(name = "edicao")
     private int nrmEdicao;
+    
+    @XmlElement(name = "data")
+    @XmlJavaTypeAdapter(DataAdapter.class)
     private LocalDate dataPublicacao;
+    
+    @XmlElement(name = "editora")
     private String editora;
+    
+    @XmlElement(name = "titulo")
     private String titulo;
+
+    @XmlElement(name = "categoria")
     private CategoriaObra categoria;
+    
+    @XmlElementWrapper(name = "autores")
+    @XmlElement(name = "autor")
+
     private List<String> autores;
+    
+    @XmlElementWrapper(name = "palavras-chave")
+    @XmlElement(name = "palavra-chave")
     private List<String> palavraChave;
     
+    
+
+
+
+    public ObraLiteraria(List<String> autores, List<String> palavrasChaves){
+        this.autores = autores;
+        this.palavraChave = palavrasChaves;
+    }
+    
+    public ObraLiteraria(){
+    }
     
     public ObraLiteraria(String isbn,int qtdExemplares, int nrmEdicao,LocalDate dataPublicacao,String editora,String titulo,CategoriaObra categoria,List<String> autores, List<String> palavrasChave){
         this.isbn = isbn;
@@ -39,8 +88,14 @@ public class ObraLiteraria {
     public List<String> getAutores(){
         return autores;
     }
+
     public List<String> getPalavras(){
         return palavraChave;
+    }
+    
+    public void addAutor(String autor){
+        autores.add(autor);
+
     }
     
     public int getIdObra() {
@@ -70,7 +125,7 @@ public class ObraLiteraria {
     public int getNrmEdicao() {
         return nrmEdicao;
     }
-
+    
     public void setNrmEdicao(int nrmEdicao) {
         this.nrmEdicao = nrmEdicao;
     }
@@ -105,6 +160,19 @@ public class ObraLiteraria {
 
     public void setCategoria(CategoriaObra categoria) {
         this.categoria = categoria;
+    }
+
+    public List<String> getPalavraChave() {
+        return palavraChave;
+    }
+
+    public void addPalavraChave(String palavra) {
+        palavraChave.add(palavra);
+    }
+
+    @Override
+    public String toString() {
+        return categoria.toString(); //String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
     }
     
 }
