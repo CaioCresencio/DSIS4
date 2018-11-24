@@ -6,6 +6,7 @@
 package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
+import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ObraLiteraria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,12 +35,19 @@ public class ObraDAO {
                     pStat.setDate(4,java.sql.Date.valueOf(o.getDataPublicacao()) );
                     pStat.setString(5,o.getEditora());
                     pStat.setString(6, o.getTitulo());
-                    pStat.setInt(7, o.getCategoria());
+                    pStat.setInt(7, o.getCategoria().getCodigoCategoria());
                     pStat.executeUpdate();
 
                     int id_obra = getPKObra(pStat,con);
                     o.setIdObra(id_obra);
+                    
+                    CategoriaObra catObra = new CategoriaObra(o.getCategoria().getCodigoCategoria(),getDescricaoCategoria(con, id_obra));
+                    o.setCategoria(catObra);
+                    
+                    System.out.println(o.getCategoria().getDescricao());
                     salvarExemplar(con,o);
+                    salvarAutor(con,o);
+                    salvarPc(con,o);
 
                     con.commit();
 
@@ -56,6 +64,30 @@ public class ObraDAO {
             throw new RuntimeException(e);
         }
       
+    }
+    
+    private String getDescricaoCategoria(Connection con, int codigo){
+        String descricao = "Sem descricão";
+        String sql = "SELECT descricao FROM categoria_literaria WHERE codigo_categoria = ?" ;
+       
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            pStat.setInt(1, codigo);
+            pStat.executeUpdate();
+            
+            try(ResultSet rs = pStat.executeQuery()){
+                
+                if(rs.next()){
+                   
+                    descricao = rs.getString(1);
+                }
+            }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return descricao;
+        
     }
     private int getPKObra(PreparedStatement pStat, Connection con){
         int id = 0;
@@ -113,12 +145,47 @@ public class ObraDAO {
             throw new RuntimeException(erro);
         }
     }
-    private void salvarPc(Connection con, ObraLiteraria o){
-        String sql = "INSERT INTO palavra_chave( )";
-        try(PreparedStatement pStat = con.prepareStatement(sql)){
+    private void salvarAutor(Connection con, ObraLiteraria o){
+        String sql = "INSERT INTO  autor(id_autor,nome) VALUES (seq_autor.nextval,?)";
+        String sql_lista = "INSERT INTO lista_autores(id_autor,id_obra) VALUES (seq_autor.currval,?) ";
+        try(PreparedStatement pStat = con.prepareStatement(sql);
+            PreparedStatement pStat2 = con.prepareStatement(sql_lista) ){
+            for(String s: o.getAutores()){
+                
+                pStat.setString(1,s);
+                pStat.executeUpdate();
+          
+                pStat2.setInt(1,o.getIdObra());
+                pStat2.executeUpdate();
+                
+                
+            }
+            
             
         }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+   
+    private void salvarPc(Connection con, ObraLiteraria o){
+        String sql = "INSERT INTO  palavra_chave(id_palavra,conteudo) VALUES (seq_palavraChave.nextval,?)";
+        String sql_lista = "INSERT INTO lista_palavras(id_obra,id_palavra) VALUES (? , seq_palavraChave.currval )";
+        try(PreparedStatement pStat = con.prepareStatement(sql);
+            PreparedStatement pStat2 = con.prepareStatement(sql_lista)){
+            for(String s: o.getPalavras()){
+                
+                pStat.setString(1,s);
+                pStat.executeUpdate();
+          
+                pStat2.setInt(1,o.getIdObra());
+                pStat2.executeUpdate();
+                
             
+            }
+            
+            
+        }catch(SQLException e){
+            throw new RuntimeException(e);
         }
     }
        

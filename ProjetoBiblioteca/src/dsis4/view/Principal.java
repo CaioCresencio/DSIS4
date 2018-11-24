@@ -1,6 +1,7 @@
 package dsis4.view;
 
 import dsis4.dao.ObraDAO;
+import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ObraLiteraria;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class Principal {
         ObraDAO obra = new ObraDAO();
         List<String> autores = new ArrayList();
         autores.add("euton");
-        ObraLiteraria o = new ObraLiteraria("23311", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo", 2, autores);
+        List<String> palavras = new ArrayList();
+        palavras.add("BD");
+        ObraLiteraria o = new ObraLiteraria("431eae211", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo",new CategoriaObra(1,"Obra literaria"), autores,palavras);
         obra.salvar(o);
         //JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
     }

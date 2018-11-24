@@ -20,12 +20,12 @@ public class ObraLiteraria {
     private LocalDate dataPublicacao;
     private String editora;
     private String titulo;
-    private int categoria;
+    private CategoriaObra categoria;
     private List<String> autores;
     private List<String> palavraChave;
     
     
-    public ObraLiteraria(String isbn,int qtdExemplares, int nrmEdicao,LocalDate dataPublicacao,String editora,String titulo,int categoria,List<String> autores){
+    public ObraLiteraria(String isbn,int qtdExemplares, int nrmEdicao,LocalDate dataPublicacao,String editora,String titulo,CategoriaObra categoria,List<String> autores, List<String> palavrasChave){
         this.isbn = isbn;
         this.qtdExemplares = qtdExemplares;
         this.dataPublicacao = dataPublicacao;
@@ -33,11 +33,16 @@ public class ObraLiteraria {
         this.titulo = titulo;
         this.categoria = categoria;
         this.autores = autores;
+        this.palavraChave = palavrasChave;
     }
     
     public List<String> getAutores(){
         return autores;
     }
+    public List<String> getPalavras(){
+        return palavraChave;
+    }
+    
     public int getIdObra() {
         return idObra;
     }
@@ -94,11 +99,11 @@ public class ObraLiteraria {
         this.titulo = titulo;
     }
 
-    public int getCategoria() {
+    public CategoriaObra getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(int categoria) {
+    public void setCategoria(CategoriaObra categoria) {
         this.categoria = categoria;
     }
     
