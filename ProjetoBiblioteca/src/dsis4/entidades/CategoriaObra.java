@@ -17,6 +17,7 @@ public class CategoriaObra {
     @XmlTransient
     private int codigoCategoria;
     
+   
     private String descricao;
     
     public CategoriaObra(int codigoCategoria, String descricao){

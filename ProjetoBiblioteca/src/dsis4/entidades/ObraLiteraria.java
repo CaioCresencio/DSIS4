@@ -50,16 +50,21 @@ public class ObraLiteraria {
     @XmlElement(name = "titulo")
     private String titulo;
 
-    @XmlElement(name = "categoria")
+    @XmlTransient
     private CategoriaObra categoria;
+//    
+//     @XmlElement(name = "categoria")
+//    private String categoria;
+//    
     
-    @XmlElementWrapper(name = "autores")
+    
     @XmlElement(name = "autor")
-
+    @XmlElementWrapper(name = "autores")
     private List<String> autores;
     
-    @XmlElementWrapper(name = "palavras-chave")
+    
     @XmlElement(name = "palavra-chave")
+    @XmlElementWrapper(name = "palavras-chave")
     private List<String> palavraChave;
     
     
@@ -172,7 +177,21 @@ public class ObraLiteraria {
 
     @Override
     public String toString() {
-        return categoria.toString(); //String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
+        return categoria.getDescricao(); //String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
+    }
+
+    /**
+     * @param autores the autores to set
+     */
+    public void setAutores(List<String> autores) {
+        this.autores = autores;
+    }
+
+    /**
+     * @param palavraChave the palavraChave to set
+     */
+    public void setPalavraChave(List<String> palavraChave) {
+        this.palavraChave = palavraChave;
     }
     
 }

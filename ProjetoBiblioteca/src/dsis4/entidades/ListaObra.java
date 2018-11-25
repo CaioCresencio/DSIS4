@@ -5,13 +5,14 @@
  */
 package dsis4.entidades;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement(name = "obras")
+
 public class ListaObra {
     @XmlElement(name = "obra")
     private List<ObraLiteraria> obras;
@@ -29,5 +30,8 @@ public class ListaObra {
     @Override
     public String toString() {
         return obras.toString();
+    }
+    public List<ObraLiteraria> getLista(){
+        return obras;
     }
 }

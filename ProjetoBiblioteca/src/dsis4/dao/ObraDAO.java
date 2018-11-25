@@ -41,7 +41,7 @@ public class ObraDAO {
                     int id_obra = getPKObra(pStat,con);
                     o.setIdObra(id_obra);
                     
-                    CategoriaObra catObra = new CategoriaObra(o.getCategoria().getCodigoCategoria(),getDescricaoCategoria(con, id_obra));
+                    CategoriaObra catObra = new CategoriaObra(o.getCategoria().getCodigoCategoria(),getDescricaoCategoria(con,o.getCategoria().getCodigoCategoria()));
                     o.setCategoria(catObra);
                     
                     System.out.println(o.getCategoria().getDescricao());
@@ -68,6 +68,7 @@ public class ObraDAO {
     
     private String getDescricaoCategoria(Connection con, int codigo){
         String descricao = "Sem descricão";
+    
         String sql = "SELECT descricao FROM categoria_literaria WHERE codigo_categoria = ?" ;
        
         try(PreparedStatement pStat = con.prepareStatement(sql)){

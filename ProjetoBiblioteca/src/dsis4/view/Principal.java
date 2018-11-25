@@ -8,10 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dsis4.entidades.CategoriaObra;
-import dsis4.entidades.ListaObra;
-import dsis4.xml.LeitorJAXB;
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,35 +22,47 @@ import dsis4.xml.LeitorJAXB;
 public class Principal {
     public static void main(String[] args) {
         
-        /*ObraDAO obra = new ObraDAO();
+        ObraDAO obra = new ObraDAO();
         List<String> autores = new ArrayList();
         autores.add("euton");
-
+        
         List<String> palavras = new ArrayList();
         palavras.add("BD");
-        ObraLiteraria o = new ObraLiteraria("431eae211", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo",new CategoriaObra(1,"Obra literaria"), autores,palavras);
+        ObraLiteraria o = new ObraLiteraria("221eeaeae31233213", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo",new CategoriaObra(1,"Obra literaria"), autores,palavras);
         obra.salvar(o);
 
-        ObraLiteraria o = new ObraLiteraria("23311", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo", 2, autores);
-        obra.salvar(o);*/
 
         //JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
-        /*LeitorSAX s = new LeitorSAX("obra.xml");
+//        LeitorSAX s = new LeitorSAX("obra.xml");
+//        
+//        ListaObra lista = (ListaObra) s.ler();
+//        
+//        System.out.println(lista.toString());
+//        for( ObraLiteraria o : lista.getLista()){
+//            System.out.println(o.getCategoria());
+//            System.out.println("\n"+ o.getTitulo());
+//        }
         
-        ListaObra lista = (ListaObra) s.ler();
+//        LeitorJAXB s = new LeitorJAXB("obra.xml");
+//        
+//        s.setClasses(ListaObra.class);
+//        
+//        ListaObra lista = (ListaObra) s.ler();
+//        
+//        lista.getLista().get(0).getEditora();
+//        
+//        for( ObraLiteraria o : lista.getLista()){
+//            System.out.println(o.getCategoria());
+//            System.out.println("\n"+ o.getTitulo());
+//        }
+//        
         
-        System.out.println(lista);*/
-        
-        LeitorJAXB s = new LeitorJAXB("obra.xml");
-        
-        s.setClasses(ListaObra.class);
-        
-        ListaObra lista = (ListaObra) s.ler();
-        
-        System.out.println(lista);
-        
-        
+//       LeitorDOM d = new LeitorDOM("obra.xml");
+//       
+//       ListaObra lista2 = (ListaObra) d.ler();
+//       
+//        System.out.println(lista2.getLista().get(0).getIsbn());
     }
     
 }
