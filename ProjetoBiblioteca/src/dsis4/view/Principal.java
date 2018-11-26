@@ -1,10 +1,6 @@
 package dsis4.view;
 
-
-import dsis4.dao.ObraDAO;
-import dsis4.entidades.CategoriaObra;
-import dsis4.entidades.ObraLiteraria;
-import java.time.LocalDate;
+import dsis4.dao.EmprestimoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +18,24 @@ import java.util.List;
 public class Principal {
     public static void main(String[] args) {
         
-        ObraDAO obra = new ObraDAO();
-        List<String> autores = new ArrayList();
-        autores.add("euton");
-        
-        List<String> palavras = new ArrayList();
-        palavras.add("BD");
-        ObraLiteraria o = new ObraLiteraria("221eeaeae31233213", 2, 2, LocalDate.now(), "Castanha", "JAsvaldo",new CategoriaObra(1,"Obra literaria"), autores,palavras);
-        obra.salvar(o);
+//        ObraDAO obra = new ObraDAO();
+//        List<String> autores = new ArrayList();
+//        autores.add("Jovens");
+//        
+//        List<String> palavras = new ArrayList();
+//        palavras.add("Sofrencia");
+//        ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), autores,palavras);
+//        obra.salvar(o);
+//        
+        List<Integer> exemplares = new ArrayList(); 
+        exemplares.add(1);
+        EmprestimoDAO emp = new EmprestimoDAO();
+        emp.salvar(1710052,exemplares,1);
+            
+//         DevolucaoDAO d = new DevolucaoDAO();
+//         d.devolver(3,1710052);
 
-
-        //JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        

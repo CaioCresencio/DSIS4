@@ -47,28 +47,7 @@ INSERT INTO obra_literaria
 (id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
 VALUES(seq_obraLiteraria.nextval,'335CAA',4,1,'12-01-2011','IFSP','Auto ajuda para ADS',5);
 
---  Autores 
-DELETE  FROM autor;
 
-INSERT INTO autor (id_autor,nome) VALUES (seq_autor.nextval,'Geovaldo');
-INSERT INTO autor (id_autor,nome) VALUES (seq_autor.nextval,'Aroudo');
-INSERT INTO autor (id_autor,nome) VALUES (seq_autor.nextval,'Luperaldo');
-INSERT INTO autor (id_autor,nome) VALUES (seq_autor.nextval,'Auvidor');
-INSERT INTO autor (id_autor,nome) VALUES (seq_autor.nextval,'Chimbinha');
-
-SELECT * FROM autor;
--- Lista autores
-DELETE FROM lista_autores;
-
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(1,1);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(3,1);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(1,2);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(2,2);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(4,5);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(1,3);
-INSERT INTO lista_autores(id_autor,id_obra) VALUES(1,4);
-
-SELECT * FROM lista_autores;
 -- CATEGORIA LEITOR
 DELETE FROM categoria_leitor;
 
@@ -79,7 +58,7 @@ INSERT INTO categoria_leitor (codigo_categoria,descricao,tempo_emprestimo)
 VALUES (seq_categoriaLeitor.nextval,'Aluno de graduação',15);
 
 INSERT INTO categoria_leitor (codigo_categoria,descricao,tempo_emprestimo)
-VALUES (seq_categoriaLeitor.nextval,'Aluno de p�s graduação',30);
+VALUES (seq_categoriaLeitor.nextval,'Aluno de pos graduação',30);
 
 INSERT INTO categoria_leitor (codigo_categoria,descricao,tempo_emprestimo)
 VALUES (seq_categoriaLeitor.nextval,'Professor',30);
@@ -92,29 +71,22 @@ VALUES (seq_categoriaLeitor.nextval,'Usuário externo',7);
 
 SELECT * FROM categoria_leitor;
 
--- RG
-INSERT INTO rg (id_rg,numero,estado) VALUES(seq_rg.nextval,1234,'SP');
-INSERT INTO rg (id_rg,numero,estado) VALUES(seq_rg.nextval,2345,'SP');
-INSERT INTO rg (id_rg,numero,estado) VALUES(seq_rg.nextval,3456,'SP');
-INSERT INTO rg (id_rg,numero,estado) VALUES(seq_rg.nextval,1337,'SP');
-INSERT INTO rg (id_rg,numero,estado) VALUES(seq_rg.nextval,9876,'SP');
-
 -- Leitor
 
-INSERT INTO leitor(id_leitor,nome,endereco,cidade,estado,telefone,prontuario,data_nascimento,email,status,id_rg,codigo_categoria)
-VALUES (seq_leitor.nextval,'Caio','Av Dom Pedro I','São Carlos','SP',123456,1710052,'29-06-1998','caio@gmail.com','DISPONIVEL',1,2);
+INSERT INTO leitor(prontuario_leitor,nome,endereco,cidade,estado,telefone,data_nascimento,email,status,rg,codigo_categoria)
+VALUES (1710052,'Caio','Av Dom Pedro I','São Carlos','SP',123456,'29-06-1998','caio@gmail.com','DISPONIVEL',1,2);
 
-INSERT INTO leitor(id_leitor,nome,endereco,cidade,estado,telefone,prontuario,data_nascimento,email,status,id_rg,codigo_categoria)
-VALUES (seq_leitor.nextval,'Frodinho','Av Dom Pedro I','São Carlos','SP',121256,1710125,'10-02-1999','frodinho@gmail.com','DISPONIVEL',2,2);
+INSERT INTO leitor(prontuario_leitor,nome,endereco,cidade,estado,telefone,data_nascimento,email,status,rg,codigo_categoria)
+VALUES (1710125,'Frodinho','Av Dom Pedro I','São Carlos','SP',121256,'10-02-1999','frodinho@gmail.com','DISPONIVEL',2,2);
 
-INSERT INTO leitor(id_leitor,nome,endereco,cidade,estado,telefone,prontuario,data_nascimento,email,status,id_rg,codigo_categoria)
-VALUES (seq_leitor.nextval,'Diego','Av Dom Pedro I','São Carlos','SP',42216,1710324,'05-02-1989','diego@gmail.com','DISPONIVEL',3,2);
+INSERT INTO leitor(prontuario_leitor,nome,endereco,cidade,estado,telefone,data_nascimento,email,status,rg,codigo_categoria)
+VALUES (1710324,'Diego','Av Dom Pedro I','São Carlos','SP',42216,'05-02-1989','diego@gmail.com','DISPONIVEL',3,2);
 
-INSERT INTO leitor(id_leitor,nome,endereco,cidade,estado,telefone,prontuario,data_nascimento,email,status,id_rg,codigo_categoria)
-VALUES (seq_leitor.nextval,'George','Av Dom Pedro II','São Carlos','SP',42216,171234,'06-05-1999','george@gmail.com','DISPONIVEL',4,2);
+INSERT INTO leitor(prontuario_leitor,nome,endereco,cidade,estado,telefone,data_nascimento,email,status,rg,codigo_categoria)
+VALUES (171234,'George','Av Dom Pedro II','São Carlos','SP',42216,'06-05-1999','george@gmail.com','DISPONIVEL',4,2);
 
-INSERT INTO leitor(id_leitor,nome,endereco,cidade,estado,telefone,prontuario,data_nascimento,email,status,id_rg,codigo_categoria)
-VALUES (seq_leitor.nextval,'Pita','Av Dom Pedro III','São Carlos','SP',42216,1710157,'15-07-1989','pita@gmail.com','DISPONIVEL',5,2);
+INSERT INTO leitor(prontuario_leitor,nome,endereco,cidade,estado,telefone,data_nascimento,email,status,rg,codigo_categoria)
+VALUES (1710157,'Pita','Av Dom Pedro III','São Carlos','SP',42216,'15-07-1989','pita@gmail.com','DISPONIVEL',5,2);
 
 SELECT * FROM leitor;
 

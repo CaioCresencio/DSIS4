@@ -61,13 +61,12 @@ increment by 1
 maxvalue 9999;
 
 CREATE TABLE leitor(
-    id_leitor INT PRIMARY KEY,
+    prontuario_leitor INT PRIMARY KEY,
     nome VARCHAR2(30) NOT NULL,
     endereco VARCHAR2(50) NOT NULL,
     cidade VARCHAR2(30) NOT NULL,
     estado VARCHAR2(5) NOT NULL,
     telefone INT NOT NULL,
-    prontuario INT NOT NULL,
     data_nascimento DATE NOT NULL,
     email VARCHAR2(40) NOT NULL,
     status VARCHAR(30) DEFAULT 'DISPONIVEL',
@@ -89,24 +88,6 @@ CREATE TABLE exemplar(
     id_obra INT NOT NULL,
     FOREIGN KEY (id_obra) REFERENCES obra_literaria (id_obra)
 );
-
-CREATE SEQUENCE seq_reserva
-nocycle
-start with 1
-increment by 1
-maxvalue 9999;
-
-CREATE TABLE reserva (
-    codigo_reserva INT PRIMARY KEY,
-    data_reserva DATE NOT NULL,
-    status VARCHAR2(30) DEFAULT 'EM ABERTO',
-    id_obra INT NOT NULL,
-    prontuario_func INT NOT NULL,
-    id_leitor INT NOT NULL,
-    FOREIGN KEY (id_obra) REFERENCES  obra_literaria (id_obra),
-    FOREIGN KEY (prontuario_func) REFERENCES funcionario(prontuario_func),
-    FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor)
-); 
 
 CREATE SEQUENCE seq_palavraChave
 nocycle
@@ -166,11 +147,12 @@ CREATE TABLE emprestimo (
     data_emp DATE DEFAULT SYSDATE,
     status VARCHAR2(30) NOT NULL,
     codigo_exemplar INT NOT NULL,
-    id_leitor INT NOT NULL,
+    prontuario_leitor INT NOT NULL,
     prontuario_func INT NOT NULL,
     FOREIGN KEY (codigo_exemplar) REFERENCES exemplar(codigo_exemplar),
-    FOREIGN KEY (prontuario_func) REFERENCES funcionario(prontuario_func),
-    FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor)
+    FOREIGN KEY (prontuario_leitor) REFERENCES leitor(prontuario_leitor),
+    FOREIGN KEY (prontuario_func) REFERENCES funcionario(prontuario_func)
+    
 );
 
 CREATE SEQUENCE seq_dev
@@ -184,11 +166,11 @@ CREATE TABLE devolucao (
     data_dev DATE NOT NULL,
     codigo_emp INT NOT NULL,
     codigo_exemplar INT NOT NULL,
-    id_leitor INT NOT NULL,
+    prontuario_leitor INT NOT NULL,
     prontuario_func INT NOT NULL,
     FOREIGN KEY (codigo_emp) REFERENCES emprestimo(codigo_emp),
     FOREIGN KEY (codigo_exemplar) REFERENCES exemplar(codigo_exemplar),
-    FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor),
+    FOREIGN KEY (prontuario_leitor) REFERENCES leitor(prontuario_leitor),
     FOREIGN KEY (prontuario_func) REFERENCES funcionario(prontuario_func)
 );
 
