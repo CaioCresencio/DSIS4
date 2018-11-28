@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dsis4.xml;
+package dsis4adapter;
 
 import dsis4.entidades.CategoriaObra;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

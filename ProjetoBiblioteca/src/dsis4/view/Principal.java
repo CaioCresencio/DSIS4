@@ -1,6 +1,7 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
+import dsis4.json.ManipuladorGson;
 import dsis4.xml.LeitorDOM;
 
 
@@ -34,7 +35,11 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(3,1710052);
 
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        
+        ManipuladorGson m = new ManipuladorGson("obra.json");
+        ListaObra lista = m.ler(ListaObra.class);
+        System.out.println(lista.toString());
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        

@@ -5,8 +5,9 @@
  */
 package dsis4.entidades;
 
-import dsis4.xml.CategoriaObraAdapter;
-import dsis4.xml.DataAdapter;
+import com.google.gson.annotations.SerializedName;
+import dsis4adapter.CategoriaObraAdapter;
+import dsis4adapter.DataAdapter;
 import java.time.LocalDate;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -57,7 +58,7 @@ public class ObraLiteraria {
     @XmlElementWrapper(name = "autores")
     private List<String> autores;
     
-    
+    @SerializedName("palavras-chave")
     @XmlElement(name = "palavra-chave")
     @XmlElementWrapper(name = "palavras-chave")
     private List<String> palavraChave;
@@ -172,7 +173,8 @@ public class ObraLiteraria {
 
     @Override
     public String toString() {
-        return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: %s", isbn, titulo, autores.toString(), palavraChave.toString(),categoria.getDescricao());
+        //return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: %s", isbn, titulo, autores.toString(), palavraChave.toString(),categoria.getDescricao());
+    return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s  Categoria: %s", isbn, titulo, autores.toString(),palavraChave.toString() ,categoria.getDescricao());
     }
 
     /**
