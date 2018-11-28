@@ -1,7 +1,6 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
-import dsis4.json.ManipuladorGson;
 import dsis4.xml.LeitorDOM;
 
 
@@ -37,9 +36,9 @@ public class Principal {
 
 //        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
-        ManipuladorGson m = new ManipuladorGson("obra.json");
-        ListaObra lista = m.ler(ListaObra.class);
-        System.out.println(lista.toString());
+//        ManipuladorGson m = new ManipuladorGson("obra.json");;
+//        ListaObra lista = m.ler(ListaObra.class);
+//        System.out.println(lista.toString());
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        
@@ -65,11 +64,11 @@ public class Principal {
 //        }
 //        
         
-//       LeitorDOM d = new LeitorDOM("obra.xml");
-//       
-//       ListaObra lista2 = (ListaObra) d.ler();
-//       
-//        System.out.println(lista2.getLista().get(0).getIsbn());
+        LeitorDOM d = new LeitorDOM("obra.xml");
+       
+        ListaObra lista2 = (ListaObra) d.ler();
+       
+        System.out.println(lista2.toString());
     }
     
 }
