@@ -1,7 +1,7 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
-import dsis4.xml.LeitorSAX;
+import dsis4.xml.LeitorDOM;
 
 
 /*

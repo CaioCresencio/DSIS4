@@ -5,17 +5,15 @@
  */
 package dsis4.entidades;
 
+import dsis4.xml.CategoriaObraAdapter;
 import dsis4.xml.DataAdapter;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
@@ -50,12 +48,9 @@ public class ObraLiteraria {
     @XmlElement(name = "titulo")
     private String titulo;
 
-    @XmlTransient
+    @XmlElement(name = "categoria")
+    @XmlJavaTypeAdapter(CategoriaObraAdapter.class)
     private CategoriaObra categoria;
-//    
-//     @XmlElement(name = "categoria")
-//    private String categoria;
-//    
     
     
     @XmlElement(name = "autor")
@@ -177,7 +172,7 @@ public class ObraLiteraria {
 
     @Override
     public String toString() {
-        return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
+        return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: %s", isbn, titulo, autores.toString(), palavraChave.toString(),categoria.getDescricao());
     }
 
     /**

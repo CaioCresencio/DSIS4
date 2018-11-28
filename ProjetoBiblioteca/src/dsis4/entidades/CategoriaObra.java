@@ -26,6 +26,7 @@ public class CategoriaObra {
     }
     public CategoriaObra(String descricao){
         this.descricao = descricao;
+        this.codigoCategoria = 0;
     }
     
     public CategoriaObra(){};
