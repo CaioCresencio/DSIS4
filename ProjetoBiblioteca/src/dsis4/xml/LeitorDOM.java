@@ -8,7 +8,6 @@ package dsis4.xml;
 import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ListaObra;
 import dsis4.entidades.ObraLiteraria;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,29 +36,30 @@ public class LeitorDOM implements AlgoritmoLeituraXML  {
     
     @Override
     public ListaObra ler() {
-        ListaObra o = new ListaObra();
+        ListaObra o = new ListaObra(new ArrayList<ObraLiteraria>());
         Document document = carregarDocumento();
+        //Element raiz = document.getDocumentElement();
         NodeList nodeList = document.getElementsByTagName("obra");
         for(int i = 0; i < nodeList.getLength(); i++) {
             ObraLiteraria obra = new ObraLiteraria();
             Element obraElement = (Element)nodeList.item(i);
             String isbn = obraElement.getElementsByTagName("isbn").item(0).getTextContent();
             String titulo = obraElement.getElementsByTagName("titulo").item(0).getTextContent();
-            String descricao = obraElement.getElementsByTagName("descricao").item(0).getTextContent();
+            String descricao = obraElement.getElementsByTagName("categoria").item(0).getTextContent();
             
             NodeList autorLista = obraElement.getElementsByTagName("autor");
             List<String> autores = new ArrayList<>();
             
             for(int j = 0; j < autorLista.getLength(); j++){
                 Element autorElement = (Element)autorLista.item(j);
-                autores.add(autorElement.getElementsByTagName("autor").item(0).getTextContent());
+                autores.add(autorElement.getTextContent());
             }
             
             NodeList palavraLista = obraElement.getElementsByTagName("palavra-chave");
             List<String> palavras = new ArrayList<>();
             for(int j = 0; j < palavraLista.getLength(); j++){
                 Element palavraElement = (Element)palavraLista.item(j);
-                palavras.add(palavraElement.getElementsByTagName("descricao").item(0).getTextContent());
+                palavras.add(palavraElement.getTextContent());
             }
             
             Element dataElement = (Element)obraElement.getElementsByTagName("data").item(0);
@@ -94,17 +94,19 @@ public class LeitorDOM implements AlgoritmoLeituraXML  {
     }
      
     private Document carregarDocumento() {
+        Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setValidating(true);
-        try {
+        try{
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setErrorHandler(new TratadorErro());
-            Document document = builder.parse(new File(arquivo));
-            return document;
+            document = builder.parse(arquivo);
+            
+        }catch(ParserConfigurationException | SAXException | IOException erro){
+            erro.printStackTrace();
+        
         }
-        catch(IOException | ParserConfigurationException | SAXException erro) {
-            throw new RuntimeException(erro);
-        }
+        
+        return document;
     }
      
     
