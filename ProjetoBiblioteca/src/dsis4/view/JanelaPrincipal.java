@@ -33,6 +33,7 @@ public class JanelaPrincipal extends JFrame{
     private JMenuItem devolucao;
     private JMenuItem consultas;
     private JMenuItem exportacao;
+    private JMenuItem carregarArquivo;
    
     
     public JanelaPrincipal(){
@@ -57,6 +58,7 @@ public class JanelaPrincipal extends JFrame{
         devolucao = new JMenuItem("Devolução");
         consultas = new JMenuItem("Consultar");
         exportacao = new JMenuItem("Exportar");
+        carregarArquivo = new JMenuItem("Carregar arquivo!");
         
         menu.add(cadastrarObras);
         cadastrarObras.addActionListener(this::abrirJanelaCadastro);
@@ -70,6 +72,8 @@ public class JanelaPrincipal extends JFrame{
         consultas.addActionListener(this::abrirJanelaConsultas);
         menu.add(exportacao);
         exportacao.addActionListener(this::abrirJanelaExportacao);
+        menu.add(carregarArquivo);
+        carregarArquivo.addActionListener(this::abrirJanelaArquivo);
         
         barra.add(menu);
         setJMenuBar(barra);
@@ -97,6 +101,10 @@ public class JanelaPrincipal extends JFrame{
     }
     public void abrirJanelaExportacao(ActionEvent e){
         
+    }
+    public void abrirJanelaArquivo(ActionEvent e){
+        JanelaXML jXML = new JanelaXML("Carregamento de arquivo");
+        carregarJanela(jXML);
     }
     
     private void configurarJanela(){

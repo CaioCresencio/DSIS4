@@ -177,7 +177,7 @@ public class ObraLiteraria {
 
     @Override
     public String toString() {
-        return categoria.getDescricao(); //String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
+        return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: ", isbn, titulo, autores.toString(), palavraChave.toString());
     }
 
     /**

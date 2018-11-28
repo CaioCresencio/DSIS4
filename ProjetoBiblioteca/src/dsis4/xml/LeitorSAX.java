@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
  *
  * @author Gabriel
  */
-public class LeitorSAX implements AgoritmoLeituraXML{
+public class LeitorSAX implements AlgoritmoLeituraXML{
     
     private String arquivo;
     

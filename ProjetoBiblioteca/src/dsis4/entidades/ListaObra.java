@@ -29,7 +29,13 @@ public class ListaObra {
     
     @Override
     public String toString() {
-        return obras.toString();
+       StringBuilder sb = new StringBuilder();
+       obras.forEach(o -> {
+           sb.append(o.toString());
+           sb.append("\n");
+           
+       });
+       return sb.toString();
     }
     public List<ObraLiteraria> getLista(){
         return obras;

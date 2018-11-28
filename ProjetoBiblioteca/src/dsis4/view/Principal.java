@@ -1,8 +1,7 @@
 package dsis4.view;
 
-import dsis4.dao.EmprestimoDAO;
-import java.util.ArrayList;
-import java.util.List;
+import dsis4.entidades.ListaObra;
+import dsis4.xml.LeitorSAX;
 
 
 /*
@@ -27,15 +26,15 @@ public class Principal {
 //        ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), autores,palavras);
 //        obra.salvar(o);
 //        
-        List<Integer> exemplares = new ArrayList(); 
-        exemplares.add(1);
-        EmprestimoDAO emp = new EmprestimoDAO();
-        emp.salvar(1710052,exemplares,1);
-            
+//        List<Integer> exemplares = new ArrayList(); 
+//        exemplares.add(1);
+//        EmprestimoDAO emp = new EmprestimoDAO();
+//        emp.salvar(1710052,exemplares,1);
+//            
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(3,1710052);
 
-//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        

@@ -15,7 +15,7 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Gabriel
  */
-public class LeitorJAXB implements AgoritmoLeituraXML{
+public class LeitorJAXB implements AlgoritmoLeituraXML{
     
     private String arquivo;
     private Class[] classes;

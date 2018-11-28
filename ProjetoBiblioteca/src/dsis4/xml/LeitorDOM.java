@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
  *
  * @author caio
  */
-public class LeitorDOM implements AgoritmoLeituraXML  {
+public class LeitorDOM implements AlgoritmoLeituraXML  {
     
     private String arquivo;
     

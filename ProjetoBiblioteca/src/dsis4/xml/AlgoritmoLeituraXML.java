@@ -9,6 +9,6 @@ package dsis4.xml;
  *
  * @author Gabriel
  */
-public interface AgoritmoLeituraXML {
+public interface AlgoritmoLeituraXML {
     public abstract Object ler();
 }
