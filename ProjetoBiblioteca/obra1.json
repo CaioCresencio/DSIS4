@@ -1,0 +1,21 @@
+{
+  "obras": [
+    {
+      "idObra": 0,
+      "isbn": "9788543004792",
+      "qtdExemplares": 0,
+      "nrmEdicao": 0,
+      "editora": "Pearson Prentice Hall",
+      "titulo": "Java: como programar",
+      "categoria": "livro",
+      "autores": [
+        "Paul Deitel",
+        "Harvey Deitel"
+      ],
+      "palavras-chave": [
+        "Java",
+        "Linguagem de programação de computador"
+      ]
+    }
+  ]
+}

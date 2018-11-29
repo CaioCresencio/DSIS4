@@ -1,8 +1,7 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
-import dsis4.entidades.ObraLiteraria;
-import dsis4.xml.LeitorJAXB;
+import dsis4.json.ManipuladorGson;
 
 
 /*
@@ -39,6 +38,8 @@ public class Principal {
         
 //        ManipuladorGson m = new ManipuladorGson("obra.json");;
 //        ListaObra lista = m.ler(ListaObra.class);
+//        m.setArquivo("obra1.json");
+//        m.gravar(lista);
 //        System.out.println(lista.toString());
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
@@ -73,6 +74,8 @@ public class Principal {
 //        ListaObra lista2 = (ListaObra) d.ler();
 //       
 //        System.out.println(lista2.toString());
+
+      
     }
     
 }
