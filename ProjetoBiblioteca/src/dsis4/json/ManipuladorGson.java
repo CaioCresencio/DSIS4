@@ -11,8 +11,10 @@ import com.google.gson.GsonBuilder;
 import dsis4.entidades.CategoriaObra;
 import dsis4adapter.GsonDataAdapter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.time.LocalDate;
 
 /**
@@ -50,6 +52,26 @@ public class ManipuladorGson {
         }
         
         return t;
+    }
+    
+      
+    public void gravar(Object object){
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+         
+        builder.registerTypeAdapter(LocalDate.class,new GsonDataAdapter());
+        builder.registerTypeAdapter(CategoriaObra.class, new GsonCategoriaObraAdapter());
+        
+        Gson gson = builder.create();
+    
+        try(Writer writer = new FileWriter(arquivo)){
+            
+            gson.toJson(object, writer);
+            System.out.println(gson.toJson(object));
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
