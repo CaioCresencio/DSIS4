@@ -3,6 +3,7 @@ package dsis4.xml;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /*
@@ -43,5 +44,27 @@ public class LeitorJAXB implements AlgoritmoLeituraXML{
      */
     public void setClasses(Class... classes) {
         this.classes = classes;
+    }
+    
+    
+    public void gravarXML(Object p){
+        
+        try {
+            JAXBContext contex = JAXBContext.newInstance(classes);
+            
+            Marshaller marshaller = contex.createMarshaller();  
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            //marshaller.marshal(p, new File(arquivo));
+            marshaller.marshal(p, System.out);
+            
+        } catch (JAXBException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+    }
+    
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 }
