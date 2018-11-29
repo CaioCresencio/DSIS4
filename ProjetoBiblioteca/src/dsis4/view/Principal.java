@@ -1,7 +1,8 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
-import dsis4.xml.LeitorDOM;
+import dsis4.entidades.ObraLiteraria;
+import dsis4.xml.LeitorJAXB;
 
 
 /*
@@ -63,12 +64,15 @@ public class Principal {
 //            System.out.println("\n"+ o.getTitulo());
 //        }
 //        
+//        s.setArquivo("servidores2.xml");
+//        s.gravarXML(lista);
         
-        LeitorDOM d = new LeitorDOM("obra.xml");
-       
-        ListaObra lista2 = (ListaObra) d.ler();
-       
-        System.out.println(lista2.toString());
+        
+//        LeitorDOM d = new LeitorDOM("obra.xml");
+//       
+//        ListaObra lista2 = (ListaObra) d.ler();
+//       
+//        System.out.println(lista2.toString());
     }
     
 }
