@@ -21,22 +21,24 @@ import java.time.Period;
 public class DevolucaoDAO {
     
     public void devolver(int exemplar,int prontuario_l){
-        
-        
+
         try(Connection con = ConexaoBD.getInstance().getConnection()){
             con.setAutoCommit(false);
-            if(estaAtrasado(con, exemplar)){
+            if(existeEmprestimo(con, exemplar, prontuario_l)){
+                if(estaAtrasado(con, exemplar)){
                     if(emprestimosEmAndamento(con, exemplar) > 0){
-                        bloqueiaUsuario(con, exemplar);
-                        
+                        bloqueiaUsuario(con, exemplar);                       
                     }else{
-                        desbloquearUsuario(con, exemplar);
-                        
+                        desbloquearUsuario(con, exemplar);     
                     }
+                }
+                devolverExemplar(con, exemplar);
+                con.commit();
+                System.out.println("Devolvido com sucesso!");
+            }else{
+                System.out.println("Emprestimo inexistente!");
             }
-            devolverExemplar(con, exemplar);
-            con.commit();
-            System.out.println("Devolvido com sucesso!");
+            
              
          }catch(SQLException e){
              throw new RuntimeException(e);
@@ -57,8 +59,7 @@ public class DevolucaoDAO {
             }catch(SQLException e){
                 throw new RuntimeException(e);
             }
-                
-           
+            
         }catch(SQLException e){
             throw new RuntimeException(e);
         } 
@@ -98,8 +99,28 @@ public class DevolucaoDAO {
         }
         return retorno;
     }
+    
+    private boolean existeEmprestimo(Connection con, int exemplar, int prontuario_l){
+        String sql = "SELECT data_emp FROM emprestimo WHERE codigo_exemplar = ? AND status = 'EM ANDAMENTO' AND prontuario_leitor = ?";
+        LocalDate retorno = null;
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            
+            pStat.setInt(1, exemplar);
+            pStat.setInt(2, prontuario_l);
+            pStat.executeUpdate();
+            
+            try(ResultSet rs = pStat.executeQuery()){       
+                return rs.next();  
+            }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    
     private LocalDate procuraDataEmprestimo(Connection con, int exemplar){
-        String sql = "SELECT data_emp FROM emprestimo WHERE codigo_exemplar = ?";
+        String sql = "SELECT data_emp FROM emprestimo WHERE codigo_exemplar = ? AND status = 'EM ANDAMENTO'";
         LocalDate retorno = null;
         try(PreparedStatement pStat = con.prepareStatement(sql)){
             
