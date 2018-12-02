@@ -6,12 +6,20 @@
 package dsis4.view;
 
 import com.toedter.calendar.JDateChooser;
+import dsis4.entidades.CategoriaObra;
+import dsis4.entidades.ObraLiteraria;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author caio
  */
-public class JanelaCadastro extends JanelaPadrao{
+public class JanelaCadastro extends JanelaPadrao {
     private JPanel painel;
     private JPanel painelPrincipal;
     private JPanel painel2;
@@ -65,6 +73,9 @@ public class JanelaCadastro extends JanelaPadrao{
     private DefaultTableModel modelo ;
     private DefaultTableModel modeloPc;
     
+    private List<String> listaAutores;
+    private List<String> listaPalavras;
+    
    
     
     
@@ -73,6 +84,8 @@ public class JanelaCadastro extends JanelaPadrao{
         carregarJanela();
         carregarComponentes();
         setSize(1000,800);
+        listaAutores = new ArrayList<>();
+        listaPalavras = new ArrayList<>();
     }
     
     private void carregarJanela(){
@@ -183,6 +196,9 @@ public class JanelaCadastro extends JanelaPadrao{
     
     private void cadastraObra(ActionEvent e){
         System.out.println(calendario.getDate());
+        if(validaCampos()){
+            System.out.println(obterCampos().getEditora());
+        }
     }
     
     private void registraPc(ActionEvent e){
@@ -191,6 +207,7 @@ public class JanelaCadastro extends JanelaPadrao{
         if(conteudo != null){
             linha[0] = conteudo;
             modeloPc.addRow(linha);
+            listaPalavras.add(conteudo);
         }
     }
     private void registraAutor(ActionEvent e){
@@ -199,8 +216,51 @@ public class JanelaCadastro extends JanelaPadrao{
         if(conteudo != null){
             linha[0] = conteudo;
             modelo.addRow(linha);
+            listaAutores.add(conteudo);
         }
         
     }
+    private ObraLiteraria obterCampos(){
+        ObraLiteraria obra = null;
+        String isbn_o = ISBN.getText();
+        String editora_o = editora.getText();
+        String titulo_o = titulo.getText();
+        int numeroEdicao_o  = Integer.parseInt(numeroEdicao.getText());
+        int numeroExemplares_o = Integer.parseInt(numeroExemplares.getText());
+        LocalDate publicacao_o = calendario.getDate().toInstant().atZone( ZoneId.systemDefault() ).toLocalDate();
+        
+        obra = new ObraLiteraria(isbn_o, numeroExemplares_o, numeroEdicao_o, publicacao_o,editora_o , titulo_o, new CategoriaObra(1,"Livro"), listaAutores, listaPalavras);
+        
+        return obra;
+    }
+    private boolean validaCampos(){
+        boolean validacao = false;
+        //System.out.println(ISBN.getText().length());
+        if(ISBN.getText().length() > 0 && editora.getText().length() > 0
+               && titulo.getText().length() > 0 && calendario.getDate() != null
+                && numeroEdicao.getText().length() > 0 && numeroExemplares.getText().length() > 0){
+            validacao = true;
+            
+            try{
+               int validaEdicao  = Integer.parseInt(numeroEdicao.getText());
+                System.out.println("teste");
+            }catch(NumberFormatException e){
+              JOptionPane.showMessageDialog(null,"Numero de edição invalido!");
+              validacao = false;
+            }
+            try{
+               int validaExemplares = Integer.parseInt(numeroExemplares.getText());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Numero de exemplares invalido!");
+                validacao = false;
+            }
+        }else{
+          JOptionPane.showMessageDialog(null,"Existem campos não preenchidos!");
+        }
+            
+       return validacao;
+    }
+
+
 
 }

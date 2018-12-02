@@ -34,7 +34,7 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(3,1710052);
 
-//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
 //        ManipuladorGson m = new ManipuladorGson("obra.json");;
 //        ListaObra lista = m.ler(ListaObra.class);
