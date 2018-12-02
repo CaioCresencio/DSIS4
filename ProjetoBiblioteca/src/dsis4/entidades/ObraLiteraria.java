@@ -5,9 +5,16 @@
  */
 package dsis4.entidades;
 
-import com.google.gson.annotations.SerializedName;
-import dsis4.adapter.CategoriaObraAdapter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dsis4.adapter.JAXBCategoriaObraAdapter;
 import dsis4.adapter.DataAdapter;
+import dsis4.adapter.JacksonCategoriaAdapter;
+import dsis4.adapter.JacksonDateAdapter;
 import java.time.LocalDate;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,14 +32,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 //@XmlType(propOrder = {"isbn","titulo","categoria","autores","palavras-chave","data","edicao","editora"})
-
+//@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
+//@JsonTypeName("obra")
 public class ObraLiteraria {
     @XmlTransient
+    @JsonIgnore
     private int idObra;
     
     @XmlElement(name = "isbn")
     private String isbn;
     
+    @JsonIgnore
     @XmlTransient
     private int qtdExemplares;
     
@@ -41,6 +51,7 @@ public class ObraLiteraria {
     
     @XmlElement(name = "data")
     @XmlJavaTypeAdapter(DataAdapter.class)
+    @JsonSerialize(using = JacksonDateAdapter.class)
     private LocalDate dataPublicacao;
     
     @XmlElement(name = "editora")
@@ -50,7 +61,8 @@ public class ObraLiteraria {
     private String titulo;
 
     @XmlElement(name = "categoria")
-    @XmlJavaTypeAdapter(CategoriaObraAdapter.class)
+    @XmlJavaTypeAdapter(JAXBCategoriaObraAdapter.class)
+    @JsonSerialize(using = JacksonCategoriaAdapter.class)
     private CategoriaObra categoria;
     
     
@@ -58,7 +70,7 @@ public class ObraLiteraria {
     @XmlElementWrapper(name = "autores")
     private List<String> autores;
     
-    @SerializedName("palavras-chave")
+    @JsonIgnore
     @XmlElement(name = "palavra-chave")
     @XmlElementWrapper(name = "palavras-chave")
     private List<String> palavraChave;
@@ -66,7 +78,7 @@ public class ObraLiteraria {
     
 
 
-
+    
     public ObraLiteraria(List<String> autores, List<String> palavrasChaves){
         this.autores = autores;
         this.palavraChave = palavrasChaves;
@@ -89,7 +101,7 @@ public class ObraLiteraria {
     public List<String> getAutores(){
         return autores;
     }
-
+    @JsonProperty("palavras-chave")
     public List<String> getPalavras(){
         return palavraChave;
     }
@@ -122,7 +134,7 @@ public class ObraLiteraria {
     public void setQtdExemplares(int qtdExemplares) {
         this.qtdExemplares = qtdExemplares;
     }
-
+    @JsonProperty("edicao")
     public int getNrmEdicao() {
         return nrmEdicao;
     }
@@ -130,7 +142,7 @@ public class ObraLiteraria {
     public void setNrmEdicao(int nrmEdicao) {
         this.nrmEdicao = nrmEdicao;
     }
-
+    @JsonProperty("data")
     public LocalDate getDataPublicacao() {
         return dataPublicacao;
     }
@@ -154,17 +166,13 @@ public class ObraLiteraria {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+    @JsonProperty("categoria")
     public CategoriaObra getCategoria() {
         return categoria;
     }
 
     public void setCategoria(CategoriaObra categoria) {
         this.categoria = categoria;
-    }
-
-    public List<String> getPalavraChave() {
-        return palavraChave;
     }
 
     public void addPalavraChave(String palavra) {

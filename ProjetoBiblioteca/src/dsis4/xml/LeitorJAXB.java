@@ -54,7 +54,7 @@ public class LeitorJAXB implements AlgoritmoLeituraXML{
             
             Marshaller marshaller = contex.createMarshaller();  
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            //marshaller.marshal(p, new File(arquivo));
+            marshaller.marshal(p, new File(arquivo));
             marshaller.marshal(p, System.out);
             
         } catch (JAXBException ex) {

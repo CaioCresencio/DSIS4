@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author caio
  */
-public class CategoriaObraAdapter extends XmlAdapter <String, CategoriaObra> {
+public class JAXBCategoriaObraAdapter extends XmlAdapter <String, CategoriaObra> {
 
     @Override
     public CategoriaObra unmarshal(String vt) throws Exception {

@@ -6,6 +6,9 @@
 package dsis4.entidades;
 
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "obras")
 
 public class ListaObra {
+    
+    
     @XmlElement(name = "obra")
+
     private List<ObraLiteraria> obras;
     
     public ListaObra(List<ObraLiteraria> obras){
@@ -37,6 +43,7 @@ public class ListaObra {
        });
        return sb.toString();
     }
+    @JsonProperty("obra")
     public List<ObraLiteraria> getLista(){
         return obras;
     }

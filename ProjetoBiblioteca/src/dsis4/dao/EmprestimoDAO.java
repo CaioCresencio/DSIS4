@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class EmprestimoDAO {
     
-    public void salvar(int prontuarioL,List<Integer> exemplares,int prontuario_func){
+    public void salvar(int prontuarioL, List<Integer> exemplares, int prontuario_func){
         String sql = "INSERT INTO emprestimo (codigo_emp,data_dev,data_emp,status,codigo_exemplar,prontuario_leitor,prontuario_func)" +
                         "VALUES (seq_emprestimo.nextval,?,?,'EM ANDAMENTO',?,?,?)";
         

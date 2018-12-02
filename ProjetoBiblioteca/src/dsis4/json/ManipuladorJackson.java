@@ -5,7 +5,10 @@
  */
 package dsis4.json;
 
-import dsis4.entidades.ObraLiteraria;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  *
@@ -14,8 +17,19 @@ import dsis4.entidades.ObraLiteraria;
 public class ManipuladorJackson{
     private String arquivo;
     
+    
     public ManipuladorJackson(String arquivo){
         this.arquivo = arquivo;
+    }
+    
+    public void gravar(Object o){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try{
+            //objectMapper.enable(SerializationFeature.INDENT_OUTPUT); 
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new FileOutputStream(arquivo), o);
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
     
     

@@ -1,7 +1,11 @@
 package dsis4.view;
 
+import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ListaObra;
-import dsis4.json.ManipuladorGson;
+import dsis4.entidades.ObraLiteraria;
+import dsis4.json.ManipuladorJackson;
+import dsis4.xml.LeitorSAX;
+import java.time.LocalDate;
 
 
 /*
@@ -34,8 +38,18 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(3,1710052);
 
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
+                
+        LeitorSAX s = new LeitorSAX("obra.xml");
+        
+        ListaObra lista = (ListaObra) s.ler();
+        System.out.println(lista.getLista().get(0).getDataPublicacao());
+
+          ManipuladorJackson m = new ManipuladorJackson("teste.json");
+          ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), null,null);
+          m.gravar(lista);
+
 //        ManipuladorGson m = new ManipuladorGson("obra.json");;
 //        ListaObra lista = m.ler(ListaObra.class);
 //        m.setArquivo("obra1.json");
