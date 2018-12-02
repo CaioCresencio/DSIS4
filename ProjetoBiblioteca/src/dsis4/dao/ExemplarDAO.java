@@ -20,12 +20,13 @@ import java.util.List;
  */
 public class ExemplarDAO {
     public void salvar(int codigoObra, int numero, Connection con){
-        String sql = "insert into exemplar(codigo_exemplar, status, numero_exemplar, id_obra) values(seq_exemplar.nextval, 'DISPONIVEL', ?, ?)";
+        String sql = "insert into exemplar(codigo_exemplar, status, numero_exemplar, id_obra) values(seq_exemplar.nextval, ?, ?, ?)";
         try
         {
             try(PreparedStatement pStat = con.prepareStatement(sql)){
-
-                pStat.setInt(1, codigoObra);
+                pStat.setString(1, "DISPONIVEL");
+                pStat.setInt(3, codigoObra);
+                pStat.setInt(2, numero);
                 pStat.executeUpdate();
 
             }catch (RuntimeException erro){
