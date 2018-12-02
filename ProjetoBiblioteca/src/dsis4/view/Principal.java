@@ -4,12 +4,11 @@ import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ListaObra;
 
 import dsis4.entidades.ObraLiteraria;
+import dsis4.json.ManipuladorGson;
 import dsis4.json.ManipuladorJackson;
 import dsis4.xml.LeitorSAX;
 import java.time.LocalDate;
 
-import dsis4.relatorioPDF.GravadorPDF;
-import dsis4.xml.LeitorDOM;
 
 
 
@@ -46,20 +45,20 @@ public class Principal {
 //        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
                 
-        LeitorSAX s = new LeitorSAX("obra.xml");
-        
-        ListaObra lista = (ListaObra) s.ler();
-        System.out.println(lista.getLista().get(0).getDataPublicacao());
+//        LeitorSAX s = new LeitorSAX("obra.xml");
+//        
+//        ListaObra lista = (ListaObra) s.ler();
+//        System.out.println(lista.getLista().get(0).getDataPublicacao());
+//
+//          ManipuladorJackson m = new ManipuladorJackson("teste.json");
+//          ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), null,null);
+//          m.gravar(lista);
 
-          ManipuladorJackson m = new ManipuladorJackson("teste.json");
-          ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), null,null);
-          m.gravar(lista);
-
-//        ManipuladorGson m = new ManipuladorGson("obra.json");;
-//        ListaObra lista = m.ler(ListaObra.class);
-//        m.setArquivo("obra1.json");
-//        m.gravar(lista);
-//        System.out.println(lista.toString());
+        ManipuladorGson m2 = new ManipuladorGson("obra.json");;
+        ListaObra lista2 = m2.ler(ListaObra.class);
+        m2.setArquivo("obra1.json");
+        m2.gravar(lista2);
+        System.out.println(lista2.toString());
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        
@@ -88,15 +87,15 @@ public class Principal {
 //        s.gravarXML(lista);
         
         
-        LeitorDOM d = new LeitorDOM("obra.xml");
-       
-        ListaObra lista2 = (ListaObra) d.ler();
-       
-        System.out.println(lista2.toString());
-        
-        GravadorPDF g = new GravadorPDF("relatorio.pdf");
-        
-        g.criaPDF(lista2);
+//        LeitorDOM d = new LeitorDOM("obra.xml");
+//       
+//        ListaObra lista2 = (ListaObra) d.ler();
+//       
+//        System.out.println(lista2.toString());
+//        
+//        GravadorPDF g = new GravadorPDF("relatorio.pdf");
+//        
+//        g.criaPDF(lista2);
 
       
     }
