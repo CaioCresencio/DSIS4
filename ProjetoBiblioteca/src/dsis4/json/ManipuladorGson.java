@@ -5,11 +5,11 @@
  */
 package dsis4.json;
 
-import dsis4adapter.GsonCategoriaObraAdapter;
+import dsis4.adapter.GsonCategoriaObraAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dsis4.entidades.CategoriaObra;
-import dsis4adapter.GsonDataAdapter;
+import dsis4.adapter.GsonDataAdapter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;

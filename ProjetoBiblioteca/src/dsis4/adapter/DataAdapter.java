@@ -1,4 +1,4 @@
-package dsis4adapter;
+package dsis4.adapter;
 
 
 import java.time.LocalDate;

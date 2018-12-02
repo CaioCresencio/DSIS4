@@ -6,8 +6,8 @@
 package dsis4.entidades;
 
 import com.google.gson.annotations.SerializedName;
-import dsis4adapter.CategoriaObraAdapter;
-import dsis4adapter.DataAdapter;
+import dsis4.adapter.CategoriaObraAdapter;
+import dsis4.adapter.DataAdapter;
 import java.time.LocalDate;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
