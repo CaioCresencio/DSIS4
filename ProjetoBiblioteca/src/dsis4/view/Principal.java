@@ -1,7 +1,8 @@
 package dsis4.view;
 
 import dsis4.entidades.ListaObra;
-import dsis4.json.ManipuladorGson;
+import dsis4.relatorioPDF.GravadorPDF;
+import dsis4.xml.LeitorDOM;
 
 
 /*
@@ -34,7 +35,7 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(3,1710052);
 
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
 //        ManipuladorGson m = new ManipuladorGson("obra.json");;
 //        ListaObra lista = m.ler(ListaObra.class);
@@ -69,11 +70,15 @@ public class Principal {
 //        s.gravarXML(lista);
         
         
-//        LeitorDOM d = new LeitorDOM("obra.xml");
-//       
-//        ListaObra lista2 = (ListaObra) d.ler();
-//       
-//        System.out.println(lista2.toString());
+        LeitorDOM d = new LeitorDOM("obra.xml");
+       
+        ListaObra lista2 = (ListaObra) d.ler();
+       
+        System.out.println(lista2.toString());
+        
+        GravadorPDF g = new GravadorPDF("relatorio.pdf");
+        
+        g.criaPDF(lista2);
 
       
     }
