@@ -8,7 +8,7 @@ package dsis4.entidades;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.gson.annotations.Expose;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +20,7 @@ public class ListaObra {
     
     
     @XmlElement(name = "obra")
-
+    @Expose
     private List<ObraLiteraria> obras;
     
     public ListaObra(List<ObraLiteraria> obras){
@@ -43,7 +43,7 @@ public class ListaObra {
        });
        return sb.toString();
     }
-    @JsonProperty("obra")
+    @JsonProperty("obras")
     public List<ObraLiteraria> getLista(){
         return obras;
     }

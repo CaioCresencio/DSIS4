@@ -7,10 +7,11 @@ package dsis4.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import dsis4.adapter.JAXBCategoriaObraAdapter;
 import dsis4.adapter.DataAdapter;
 import dsis4.adapter.JacksonCategoriaAdapter;
@@ -32,24 +33,28 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 //@XmlType(propOrder = {"isbn","titulo","categoria","autores","palavras-chave","data","edicao","editora"})
-//@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-//@JsonTypeName("obra")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
+@JsonTypeName("obra")
 public class ObraLiteraria {
     @XmlTransient
     @JsonIgnore
-    private int idObra;
+    private transient int idObra;
     
     @XmlElement(name = "isbn")
+    
     private String isbn;
     
     @JsonIgnore
     @XmlTransient
-    private int qtdExemplares;
     
+    private transient int qtdExemplares;
+    
+    @SerializedName("edicao")
     @XmlElement(name = "edicao")
     private int nrmEdicao;
     
     @XmlElement(name = "data")
+    @SerializedName("data")
     @XmlJavaTypeAdapter(DataAdapter.class)
     @JsonSerialize(using = JacksonDateAdapter.class)
     private LocalDate dataPublicacao;
@@ -71,6 +76,7 @@ public class ObraLiteraria {
     private List<String> autores;
     
     @JsonIgnore
+    @SerializedName("palavras-chave")
     @XmlElement(name = "palavra-chave")
     @XmlElementWrapper(name = "palavras-chave")
     private List<String> palavraChave;
