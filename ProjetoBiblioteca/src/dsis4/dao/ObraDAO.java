@@ -130,23 +130,15 @@ public class ObraDAO {
     }
      
     private void salvarExemplar(Connection con, ObraLiteraria o){
-        String sql = "INSERT INTO exemplar(codigo_exemplar, status,numero_exemplar,id_obra)"
-                + "VALUES (seq_exemplar.nextval,?,?,?)";
+             
+        ExemplarDAO exDAO = new ExemplarDAO();     
         
-        try(PreparedStatement pStat = con.prepareStatement(sql)){
-            
-            for(int i = 1; i <= o.getQtdExemplares(); i++){
-                
-                pStat.setString(1,"DISPONIVEL");
-                pStat.setInt(2, i);
-                pStat.setInt(3, o.getIdObra());
-                
-                pStat.executeUpdate();
-            }
-        }catch(SQLException erro){
-            throw new RuntimeException(erro);
+        for(int i = 1; i <= o.getQtdExemplares(); i++){
+            exDAO.salvar(o.getIdObra(), i, con);
         }
+        
     }
+    
     private void salvarAutor(Connection con, ObraLiteraria o){
         String sql = "INSERT INTO  autor(id_autor,nome) VALUES (seq_autor.nextval,?)";
         String sql_lista = "INSERT INTO lista_autores(id_autor,id_obra) VALUES (seq_autor.currval,?) ";
