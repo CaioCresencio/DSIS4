@@ -17,7 +17,7 @@ import java.io.IOException;
  *
  * @author caio
  */
-public class JacksonCategoriaAdapter  extends JsonSerializer<CategoriaObra> {
+public class JacksonCategoriaAdapter  extends JsonSerializer<CategoriaObra>  {
 
     @Override
     public void serialize(CategoriaObra t, JsonGenerator jg, SerializerProvider sp) throws IOException, JsonProcessingException {

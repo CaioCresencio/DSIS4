@@ -6,9 +6,9 @@
       "titulo" : "Java: como programar",
       "categoria" : "livro",
       "autores" : [ "Paul Deitel", "Harvey Deitel" ],
-      "edicao" : 0,
-      "data" : null,
-      "palavras-chave" : null
+      "edicao" : 10,
+      "data" : "30-09-2016",
+      "palavras-chave" : [ "Java", "Linguagem de programação de computador" ]
     }
   } ]
 }

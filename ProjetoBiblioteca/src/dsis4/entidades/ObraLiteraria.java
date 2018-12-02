@@ -9,13 +9,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import dsis4.adapter.JAXBCategoriaObraAdapter;
 import dsis4.adapter.DataAdapter;
 import dsis4.adapter.JacksonCategoriaAdapter;
 import dsis4.adapter.JacksonDateAdapter;
+import dsis4.adapter.JacksonDeserializerCat;
+import dsis4.adapter.JacksonDeserializerDate;
 import java.time.LocalDate;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,16 +39,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @JsonTypeName("obra")
 public class ObraLiteraria {
     @XmlTransient
-    @JsonIgnore
     private transient int idObra;
     
     @XmlElement(name = "isbn")
     
     private String isbn;
     
-    @JsonIgnore
     @XmlTransient
-    
     private transient int qtdExemplares;
     
     @SerializedName("edicao")
@@ -57,6 +56,7 @@ public class ObraLiteraria {
     @SerializedName("data")
     @XmlJavaTypeAdapter(DataAdapter.class)
     @JsonSerialize(using = JacksonDateAdapter.class)
+    @JsonDeserialize(using = JacksonDeserializerDate.class)
     private LocalDate dataPublicacao;
     
     @XmlElement(name = "editora")
@@ -68,6 +68,7 @@ public class ObraLiteraria {
     @XmlElement(name = "categoria")
     @XmlJavaTypeAdapter(JAXBCategoriaObraAdapter.class)
     @JsonSerialize(using = JacksonCategoriaAdapter.class)
+    @JsonDeserialize(using = JacksonDeserializerCat.class)
     private CategoriaObra categoria;
     
     
@@ -116,7 +117,7 @@ public class ObraLiteraria {
         autores.add(autor);
 
     }
-    
+    @JsonIgnore
     public int getIdObra() {
         return idObra;
     }
@@ -132,7 +133,7 @@ public class ObraLiteraria {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-
+    @JsonIgnore
     public int getQtdExemplares() {
         return qtdExemplares;
     }

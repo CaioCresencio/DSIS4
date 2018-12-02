@@ -53,12 +53,14 @@ public class Principal {
 //          ManipuladorJackson m = new ManipuladorJackson("teste.json");
 //          ObraLiteraria o = new ObraLiteraria("5354567", 2, 2, LocalDate.now(), "Tste3", "bicho",new CategoriaObra(1,"Obra literaria"), null,null);
 //          m.gravar(lista);
-
-        ManipuladorGson m2 = new ManipuladorGson("obra.json");;
-        ListaObra lista2 = m2.ler(ListaObra.class);
-        m2.setArquivo("obra1.json");
-        m2.gravar(lista2);
-        System.out.println(lista2.toString());
+//
+//          m.ler();
+          
+//        ManipuladorGson m2 = new ManipuladorGson("obra.json");;
+//        ListaObra lista2 = m2.ler(ListaObra.class);
+//        m2.setArquivo("obra1.json");
+//        m2.gravar(lista2);
+//        System.out.println(lista2.toString());
         
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        
