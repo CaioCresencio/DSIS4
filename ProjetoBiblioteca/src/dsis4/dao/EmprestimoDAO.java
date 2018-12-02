@@ -7,10 +7,12 @@ package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,6 +165,7 @@ public class EmprestimoDAO {
         return qtd;
         
     }
+    
     private boolean confereDuplicidadeExemplar(Connection con, int exemplar, int prontuario){
         String sql = "SELECT COUNT(codigo_emp) FROM obra_literaria JOIN exemplar USING(id_obra)" +
                      "JOIN emprestimo USING(codigo_exemplar) WHERE prontuario_leitor = ?" +
@@ -189,6 +192,63 @@ public class EmprestimoDAO {
         return retorno;
     }
       
-    
-      
+    public List<List<String>> buscaPaginada(LocalDate data, int min, int max){
+        ConexaoBD conexao = ConexaoBD.getInstance();
+        String query = "select data_emp, data_dev, titulo_obra , nrm_edicao, codigo_exemplar , descricao, nome\n" +
+                        "from emprestimo e\n" +
+                        "join exemplar \n" +
+                        "using(codigo_exemplar)\n" +
+                        "join obra_literaria\n" +
+                        "using(id_obra), (select l.nome, c.descricao \n" +
+                        "                 from leitor l\n" +
+                        "                 join emprestimo\n" +
+                        "                 using(prontuario_leitor) \n" +
+                        "                 join categoria_leitor c\n" +
+                        "                 using(codigo_categoria))\n" +
+                        "where e.data_dev > ? or\n" +
+                        "e.status = 'EM ANDAMENTO'";
+        
+        String sql = String.format("select t.* from (select e.*, rownum rnum from (%s)e where rownum <= ?)t where rnum >= ?", query);
+                            
+        
+        List<List<String>> lista = new ArrayList<>();      
+        
+        try (
+            Connection con = conexao.getConnection();
+            PreparedStatement pStat = con.prepareStatement(sql))
+        {      
+            pStat.setDate(1, Date.valueOf(data));
+            pStat.setInt(2, max);
+            pStat.setInt(3, min);
+            
+            try(ResultSet rs = pStat.executeQuery()) {
+                while(rs.next()) {
+                    List<String> dados = new ArrayList<>();
+                    String nome, titulo, nro_ed, descricao, cod_exemplar, data_emp, data_dev;
+                    
+                    data_emp = String.valueOf(rs.getDate(1));
+                    dados.add(data_emp);
+                    data_dev = String.valueOf(rs.getDate(2));
+                    dados.add(data_dev);
+                    titulo = rs.getString(3);
+                    dados.add(titulo);
+                    nro_ed = String.valueOf(rs.getInt(4));
+                    dados.add(nro_ed);
+                    cod_exemplar = String.valueOf(rs.getInt(5));
+                    dados.add(cod_exemplar);
+                    descricao = rs.getString(6);
+                    dados.add(descricao);
+                    nome = rs.getString(7);
+                    dados.add(nome);
+                    
+                    lista.add(dados);
+                }
+
+                return lista;
+            }
+        }
+        catch(SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+    } 
 }
