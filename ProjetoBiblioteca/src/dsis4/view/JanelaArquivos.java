@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  *
  * @author caio
  */
-public class JanelaXML extends JanelaPadrao implements ActionListener{
+public class JanelaArquivos extends JanelaPadrao implements ActionListener{
     private JPanel panel;
     private BotaoAbstrato buttonSAX;
     private BotaoAbstrato buttonJAXB;
@@ -27,7 +27,7 @@ public class JanelaXML extends JanelaPadrao implements ActionListener{
     private AlgoritmoLeituraXML algoritmo;
     
     
-    public JanelaXML(String titulo) {
+    public JanelaArquivos(String titulo) {
         super(titulo);
         carregarJanela();
     }

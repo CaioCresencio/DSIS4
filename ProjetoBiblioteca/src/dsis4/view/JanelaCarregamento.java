@@ -75,10 +75,12 @@ public class JanelaCarregamento extends JanelaPadrao{
         chooser = new JFileChooser();
         chooser.setDialogTitle("Procura arquivo");
         
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("xml files (*.xml)","xml");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("xml files (*.xml) json files (*.json)","xml","json");
         chooser.setFileFilter(filtro);
         int retorno = chooser.showOpenDialog(this);
-        
+      
+        System.out.println(chooser.getDialogTitle());
+        System.out.println(chooser.getSelectedFile());
         if(retorno == JFileChooser.APPROVE_OPTION){
             System.out.println("Pego!");
             caminho.setText(chooser.getSelectedFile().getPath());

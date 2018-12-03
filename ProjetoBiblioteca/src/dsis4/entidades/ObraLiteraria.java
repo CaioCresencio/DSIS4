@@ -38,14 +38,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 @JsonTypeName("obra")
 public class ObraLiteraria {
-    @XmlTransient
+    //@XmlTransient
     private transient int idObra;
     
     @XmlElement(name = "isbn")
     
     private String isbn;
     
-    @XmlTransient
+    //@XmlTransient
     private transient int qtdExemplares;
     
     @SerializedName("edicao")

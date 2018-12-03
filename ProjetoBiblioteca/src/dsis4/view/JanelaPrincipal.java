@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,6 +23,7 @@ public class JanelaPrincipal extends JFrame{
     
     private JMenuBar barra;
     private JMenu menu;
+    private JMenu menuArquivos;
     private JLabel logo;
     private JDesktopPane desktop;
     
@@ -47,6 +47,7 @@ public class JanelaPrincipal extends JFrame{
        
         barra = new JMenuBar();
         menu = new JMenu("Arquivo");
+        menuArquivos = new JMenu("Ler/Exportar");
         
         
         ImageIcon icon = new ImageIcon("imgs/ifsp.png");
@@ -70,12 +71,16 @@ public class JanelaPrincipal extends JFrame{
         devolucao.addActionListener(this::abrirJanelaDevoulcao);
         menu.add(consultas);
         consultas.addActionListener(this::abrirJanelaConsultas);
-        menu.add(exportacao);
+        
+        menuArquivos.add(exportacao);
         exportacao.addActionListener(this::abrirJanelaExportacao);
-        menu.add(carregarArquivo);
+        menuArquivos.add(carregarArquivo);
         carregarArquivo.addActionListener(this::abrirJanelaArquivo);
         
+        
+        
         barra.add(menu);
+        barra.add(menuArquivos);
         setJMenuBar(barra);
         desktop.add(logo);
         add(desktop);
@@ -100,10 +105,11 @@ public class JanelaPrincipal extends JFrame{
         
     }
     public void abrirJanelaExportacao(ActionEvent e){
-        
+        JanelaExportacao je = new JanelaExportacao("---Exportação---");
+        carregarJanela(je);
     }
     public void abrirJanelaArquivo(ActionEvent e){
-        JanelaXML jXML = new JanelaXML("Carregamento de arquivo");
+        JanelaArquivos jXML = new JanelaArquivos("Carregamento de arquivo");
         carregarJanela(jXML);
     }
     
