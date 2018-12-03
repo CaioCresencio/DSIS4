@@ -39,7 +39,7 @@ public class ExemplarDAO {
     }
     
     public List<Exemplar> buscaExemplares(int codigoObra){
-        String sql = "select codigo_exemplar, status, numero_exemplar from exemplar where id_obra = ?";
+        String sql = "select codigo_exemplar, status, numero_exemplar, id_obra from exemplar where id_obra = ?";
         List<Exemplar> exemplares = new ArrayList<>();
         try(                
                 Connection con = ConexaoBD.getInstance().getConnection();
@@ -52,7 +52,8 @@ public class ExemplarDAO {
                     int id = rs.getInt(1);
                     boolean disponivel = rs.getString(2).equals("DISPONIVEL");
                     int numero = rs.getInt(3);
-                    Exemplar e = new Exemplar(id,disponivel, numero);
+                    int id_obra = rs.getInt(4);
+                    Exemplar e = new Exemplar(id,disponivel, numero, id_obra);
                     
                     exemplares.add(e);
                 }

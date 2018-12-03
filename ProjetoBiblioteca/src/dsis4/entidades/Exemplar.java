@@ -14,15 +14,21 @@ public class Exemplar {
     private int id;
     private boolean disponivel;
     private int numero;
+    private int id_obra;
     
-    public Exemplar(int id, boolean disponivel,int numero){
+    public Exemplar(int id, boolean disponivel,int numero, int id_obra){
         this.id = id;
         this.disponivel = disponivel;
         this.numero = numero;
+        this.id_obra = id_obra;
     }
 
     public int getId() {
         return id;
+    }
+    
+    public int getId_obra() {
+        return id_obra;
     }
 
     public void setId(int id) {
