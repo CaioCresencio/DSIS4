@@ -6,6 +6,7 @@
 package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
+import dsis4.entidades.Exemplar;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 public class EmprestimoDAO {
     
-    public void salvar(int prontuarioL, List<Integer> exemplares, int prontuario_func){
+    public void salvar(int prontuarioL, List<Exemplar> exemplares, int prontuario_func){
         String sql = "INSERT INTO emprestimo (codigo_emp,data_dev,data_emp,status,codigo_exemplar,prontuario_leitor,prontuario_func)" +
                         "VALUES (seq_emprestimo.nextval,?,?,'EM ANDAMENTO',?,?,?)";
         
@@ -35,19 +36,18 @@ public class EmprestimoDAO {
                 try(PreparedStatement pStat = con.prepareStatement(sql)){
                     con.setAutoCommit(false);
                     
-                    for(Integer e : exemplares){
-                        System.out.println(e);
+                    for(Exemplar e : exemplares){
+                        //System.out.println(e);
                         pStat.setDate(1, java.sql.Date.valueOf(dataDev));
                         pStat.setDate(2, java.sql.Date.valueOf(dataAtual));
-                        pStat.setInt(3, e);
+                        pStat.setInt(3, e.getId());
                         pStat.setInt(4, prontuarioL);
                         pStat.setInt(5, prontuario_func);
                         pStat.executeUpdate();
                         
-                        alteraStatusExemplar(con,e);
+                        alteraStatusExemplar(con,e.getId());
                     }
-                     
-                    
+
                     con.commit();
 
                     System.out.println("Salvo com sucesso!");
@@ -76,25 +76,25 @@ public class EmprestimoDAO {
         }    
          
     }
-    private boolean verificarEmprestimo(Connection con, int prontuario,List<Integer> exemplares){
+    private boolean verificarEmprestimo(Connection con, int prontuario, List<Exemplar> exemplares){
         boolean permicao = false;
         
         if(!leitorBloqueado(con, prontuario) && (exemplares.size() + emprestimosEmAndamento(con, prontuario)) <= 3  ){
             //EXEMPLARES DIFERENTES ENTRE SI
             Map <Integer, Integer> m = new HashMap<>();
-            for(Integer e : exemplares ){
-                int i = e;
+            for(Exemplar e : exemplares ){
+                int i = e.getId();
                 if(m.get(i) == null){
                     m.put(i, i);
                 }
             }
             boolean possuiIgual = false;
-            System.out.println("e");
+        
             if( m.size() == exemplares.size()){
-                for(Integer e: exemplares){
-                    if(confereDuplicidadeExemplar(con,e,prontuario)){
+                for(Exemplar e: exemplares){
+                    if(confereDuplicidadeExemplar(con,e.getId(),prontuario) || confereDuplicidadeNalista(exemplares)){
                         possuiIgual = true;
-                        System.out.println("eu");
+                        System.out.println("Exemplar da mesma obra");
                     }
                 }
                 if(possuiIgual == false){
@@ -168,8 +168,9 @@ public class EmprestimoDAO {
     
     private boolean confereDuplicidadeExemplar(Connection con, int exemplar, int prontuario){
         String sql = "SELECT COUNT(codigo_emp) FROM obra_literaria JOIN exemplar USING(id_obra)" +
-                     "JOIN emprestimo USING(codigo_exemplar) WHERE prontuario_leitor = ?" +
-                     "AND id_obra =  (SELECT id_obra FROM obra_literaria JOIN exemplar USING (id_obra) WHERE codigo_exemplar = ?)";
+                     "JOIN emprestimo e USING(codigo_exemplar) WHERE prontuario_leitor = ?" +
+                     "AND id_obra =  (SELECT id_obra FROM obra_literaria JOIN exemplar USING (id_obra) WHERE codigo_exemplar = ?)"+
+                     "AND e.status = 'EM ANDAMENTO'";
         int qtd = 0;
         boolean retorno = false;
         try(PreparedStatement pStat = con.prepareStatement(sql)){
@@ -183,12 +184,28 @@ public class EmprestimoDAO {
                         retorno = true;
                     }
                 }
+                
             }catch(SQLException e){
                 throw new RuntimeException(e);
             }
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
+        return retorno;
+    }
+    
+    private boolean confereDuplicidadeNalista(List<Exemplar> exemplares){
+
+        boolean retorno = false;
+        
+        for(int i = 0; i<exemplares.size()&&!retorno; i++){
+            for(int j = i+1; j<exemplares.size()&&!retorno; i++){
+                if(exemplares.get(i).getId_obra() == exemplares.get(j).getId_obra()){
+                    retorno = true;
+                }  
+            }
+        }
+         
         return retorno;
     }
       
