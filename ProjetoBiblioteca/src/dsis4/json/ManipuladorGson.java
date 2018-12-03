@@ -67,7 +67,7 @@ public class ManipuladorGson {
         try(Writer writer = new FileWriter(arquivo)){
             
             gson.toJson(object, writer);
-            System.out.println(gson.toJson(object));
+            //System.out.println(gson.toJson(object));
             
         } catch (IOException ex) {
             ex.printStackTrace();

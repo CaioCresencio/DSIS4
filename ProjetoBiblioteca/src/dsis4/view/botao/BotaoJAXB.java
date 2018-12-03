@@ -7,7 +7,7 @@ package dsis4.view.botao;
 
 import dsis4.entidades.ListaObra;
 import dsis4.xml.AlgoritmoLeituraXML;
-import dsis4.xml.LeitorJAXB;
+import dsis4.xml.ManipuladorJAXB;
 
 
 /**
@@ -22,7 +22,7 @@ public class BotaoJAXB extends BotaoAbstrato {
 
     @Override
     public AlgoritmoLeituraXML getAlgoritmo() {
-        LeitorJAXB leitor = new LeitorJAXB("obra.xml");
+        ManipuladorJAXB leitor = new ManipuladorJAXB("obra.xml");
         leitor.setClasses(ListaObra.class);
         
         return leitor;

@@ -1,0 +1,104 @@
+{
+  "obras": [
+    {
+      "isbn": "123456",
+      "edicao": 0,
+      "data": "25-11-2018",
+      "editora": "Castanha",
+      "titulo": "JAsvaldo",
+      "categoria": "Livro",
+      "autores": [
+        "euton"
+      ],
+      "palavras-chave": [
+        "euton"
+      ]
+    },
+    {
+      "isbn": "1234567",
+      "edicao": 0,
+      "data": "25-11-2018",
+      "editora": "Teste",
+      "titulo": "Aldo",
+      "categoria": "Livro",
+      "autores": [
+        "Jovens"
+      ],
+      "palavras-chave": [
+        "Jovens"
+      ]
+    },
+    {
+      "isbn": "4567",
+      "edicao": 0,
+      "data": "25-11-2018",
+      "editora": "Tste2",
+      "titulo": "oloco",
+      "categoria": "Livro",
+      "autores": [
+        "Jovens"
+      ],
+      "palavras-chave": [
+        "Jovens"
+      ]
+    },
+    {
+      "isbn": "5354567",
+      "edicao": 0,
+      "data": "25-11-2018",
+      "editora": "Tste3",
+      "titulo": "bicho",
+      "categoria": "Livro",
+      "autores": [
+        "Jovens"
+      ],
+      "palavras-chave": [
+        "Jovens"
+      ]
+    },
+    {
+      "isbn": "456DBA",
+      "edicao": 0,
+      "data": "15-02-2012",
+      "editora": "Sabugosa NEW",
+      "titulo": "C como sofrer, a revolta!",
+      "categoria": "Livro",
+      "autores": [],
+      "palavras-chave": []
+    },
+    {
+      "isbn": "321DCA",
+      "edicao": 0,
+      "data": "20-09-2001",
+      "editora": "Sabugosa NEW",
+      "titulo": "PHP como sofrer",
+      "categoria": "Livro",
+      "autores": [],
+      "palavras-chave": []
+    },
+    {
+      "isbn": "12312512",
+      "edicao": 0,
+      "data": "10-12-2018",
+      "editora": "TESTE",
+      "titulo": "Osvaldo",
+      "categoria": "Jornal",
+      "autores": [
+        "Caiera"
+      ],
+      "palavras-chave": [
+        "Caiera"
+      ]
+    },
+    {
+      "isbn": "333BBA",
+      "edicao": 0,
+      "data": "21-10-2015",
+      "editora": "IFSP",
+      "titulo": "Jogos educacionais",
+      "categoria": "Trabalho acadêmico",
+      "autores": [],
+      "palavras-chave": []
+    }
+  ]
+}

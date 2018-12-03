@@ -40,18 +40,18 @@ public class Principal {
 //        List<Exemplar> exemplares = eDao.buscaExemplares(6);
 //        List<Exemplar> exemplares1 = new ArrayList<>();
 //        exemplares1.add(exemplares.get(1));
-        EmprestimoDAO emp = new EmprestimoDAO();
+//        EmprestimoDAO emp = new EmprestimoDAO();
         //emp.salvar(1710125,exemplares1,1);
         
         
-        List<List<String>> exemplares = emp.buscaPaginada(LocalDate.now(), 1, 5);
-        
-        System.out.println(exemplares.get(1).get(2));
+//        List<List<String>> exemplares = emp.buscaPaginada(LocalDate.now(), 1, 5);
+//        
+//        System.out.println(exemplares.get(1).get(2));
 //            
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(1,1710125);
 
-//        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
                 
 //        LeitorSAX s = new LeitorSAX("obra.xml");
@@ -98,15 +98,15 @@ public class Principal {
 //        s.gravarXML(lista);
         
         
-        LeitorDOM d = new LeitorDOM("obra.xml");
-       
-        ListaObra lista2 = (ListaObra) d.ler();
-       
-        System.out.println(lista2.toString());
-        
-        GravadorPDF g = new GravadorPDF("relatorio.pdf");
-        
-        g.criaPDF(lista2);
+//        LeitorDOM d = new LeitorDOM("obra.xml");
+//       
+//        ListaObra lista2 = (ListaObra) d.ler();
+//       
+//        System.out.println(lista2.toString());
+//        
+//        GravadorPDF g = new GravadorPDF("relatorio.pdf");
+//        
+//        g.criaPDF(lista2);
 
       
     }

@@ -16,12 +16,12 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Gabriel
  */
-public class LeitorJAXB implements AlgoritmoLeituraXML{
+public class ManipuladorJAXB implements AlgoritmoLeituraXML{
     
     private String arquivo;
     private Class[] classes;
     
-    public LeitorJAXB(String arquivo) {
+    public ManipuladorJAXB(String arquivo) {
         this.arquivo = arquivo;
     }
 
@@ -55,7 +55,6 @@ public class LeitorJAXB implements AlgoritmoLeituraXML{
             Marshaller marshaller = contex.createMarshaller();  
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(p, new File(arquivo));
-            marshaller.marshal(p, System.out);
             
         } catch (JAXBException ex) {
             ex.printStackTrace();

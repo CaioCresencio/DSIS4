@@ -7,11 +7,14 @@ package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
 import dsis4.entidades.CategoriaObra;
+import dsis4.entidades.ListaObra;
 import dsis4.entidades.ObraLiteraria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -188,4 +191,80 @@ public class ObraDAO {
 //    }
 //    
     
+    public ListaObra listarObras(){
+        String sql = "select id_obra , isbn, qtd_exemplares , nrm_edicao,data_publicacao, editora,titulo_obra ,codigo_categoria, cl.descricao from"
+                + " obra_literaria JOIN categoria_literaria cl USING (codigo_categoria) ";
+        ListaObra listaObra = null;
+        List<ObraLiteraria> lista = new ArrayList<>();
+        try(Connection con = ConexaoBD.getInstance().getConnection()){
+            try(PreparedStatement pStat = con.prepareStatement(sql)){
+                pStat.executeUpdate();
+                
+                try(ResultSet rs = pStat.executeQuery()){
+                    while(rs.next()){
+                        
+                        int id_obra = rs.getInt("id_obra");
+                        String ibsn = rs.getString("isbn");
+                        int qtd_exemplares = rs.getInt("qtd_exemplares");
+                        int nrm_edicao = rs.getInt("nrm_edicao");
+                        LocalDate data = (rs.getDate("data_publicacao").toLocalDate());
+                        String editora = rs.getString("editora");
+                        String titulo = rs.getString("titulo_obra");
+                        int codigo_categoria = rs.getInt("codigo_categoria");
+                        String descricao = rs.getString("descricao");
+                        CategoriaObra co = new CategoriaObra(codigo_categoria,descricao);
+                        ObraLiteraria obra = new ObraLiteraria(ibsn, qtd_exemplares, nrm_edicao, data, editora, titulo, co, getAutores(con, id_obra),getAutores(con, id_obra));
+                        lista.add(obra);
+                    }
+                }
+                
+            }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return new ListaObra(lista);
+    }
+    
+    public List<String> getAutores(Connection con, int id_obra){
+        List<String> listaAutores = new ArrayList<>();
+        String sql = "SELECT nome,titulo_obra FROM autor JOIN lista_autores USING (id_autor) JOIN obra_literaria USING(id_obra) WHERE id_obra = ?";
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            pStat.setInt(1, id_obra);
+            pStat.executeUpdate();      
+            try(ResultSet rs = pStat.executeQuery()){
+                while(rs.next()){
+                    String autor = rs.getString(1);
+                    listaAutores.add(autor);
+                }
+            }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return listaAutores;
+        
+    }
+    public List<String> getPalavrasChave(Connection con, int id_obra){
+        List<String> listaPalavras = new ArrayList<>();
+        String sql = "SELECT conteudo FROM palavra_chave JOIN lista_palavras USING (id_palavra) JOIN obra_literaria USING(id_obra) WHERE id_obra = ?";
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            pStat.setInt(1, id_obra);
+            pStat.executeUpdate();      
+            try(ResultSet rs = pStat.executeQuery()){
+                while(rs.next()){
+                    String autor = rs.getString(1);
+                    listaPalavras.add(autor);
+                }
+            }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return listaPalavras;
+        
+    }
 }

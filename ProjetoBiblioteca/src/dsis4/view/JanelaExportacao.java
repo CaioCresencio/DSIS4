@@ -5,13 +5,18 @@
  */
 package dsis4.view;
 
+import dsis4.dao.ObraDAO;
+import dsis4.entidades.ListaObra;
+import dsis4.json.ManipuladorGson;
 import dsis4.relatorioPDF.GravadorPDF;
+import dsis4.xml.ManipuladorJAXB;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -27,10 +32,13 @@ public class JanelaExportacao extends JanelaPadrao {
     private JButton botaoJSON;
     private JLabel textoExportacao;
     
+    private ObraDAO obraDAO;
+    
     public JanelaExportacao(String titulo) {
         super(titulo);
         carregarComponentes();
         pack();
+        obraDAO = new ObraDAO();
     }
     
     private void carregarComponentes(){
@@ -45,7 +53,9 @@ public class JanelaExportacao extends JanelaPadrao {
         botaoPDF = new JButton(iconPDF);
         botaoPDF.addActionListener(this::exportarPDF);
         botaoXML = new JButton(iconXML);
+        botaoXML.addActionListener(this::exportarXML);
         botaoJSON = new JButton(iconJSON);
+        botaoJSON.addActionListener(this::exportarJSON);
         
         textoExportacao = new JLabel("Escolha uma opção de exportação");
         
@@ -61,7 +71,22 @@ public class JanelaExportacao extends JanelaPadrao {
         adicionarComponente(panelPrincipal, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
     private void exportarPDF(ActionEvent e){
-          GravadorPDF g = new GravadorPDF("relatorio.pdf");
+        GravadorPDF g = new GravadorPDF("relatorio.pdf");
+        g.criaPDF(obraDAO.listarObras());
+        JOptionPane.showMessageDialog(null, "Exportação PDF realizada!");
+    }
+    
+    private void exportarXML(ActionEvent e){
+       ManipuladorJAXB m = new ManipuladorJAXB("exportacao.xml");
+       m.setClasses(ListaObra.class);
+       m.gravarXML(obraDAO.listarObras());
+       JOptionPane.showMessageDialog(null, "Exportação XML realizada!");
+    }
+    
+    private void exportarJSON(ActionEvent e){
+        ManipuladorGson m = new ManipuladorGson("exportacao.json");
+        m.gravar(obraDAO.listarObras());
+        JOptionPane.showMessageDialog(null, "Exportação JSON realizada!");
     }
     
 }
