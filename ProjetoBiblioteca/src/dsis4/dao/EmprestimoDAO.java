@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -209,26 +210,21 @@ public class EmprestimoDAO {
         return retorno;
     }
       
-    public List<List<String>> buscaPaginada(LocalDate data, int min, int max){
+    public List<List<String>> relatorioPendentes(LocalDate data, int min, int max){
         ConexaoBD conexao = ConexaoBD.getInstance();
-        String query = "select data_emp, data_dev, titulo_obra , nrm_edicao, codigo_exemplar , descricao, nome\n" +
+        String query = "select data_emp, data_dev, titulo_obra , nrm_edicao, codigo_exemplar, prontuario_leitor\n" +
                         "from emprestimo e\n" +
                         "join exemplar \n" +
                         "using(codigo_exemplar)\n" +
                         "join obra_literaria\n" +
-                        "using(id_obra), (select l.nome, c.descricao \n" +
-                        "                 from leitor l\n" +
-                        "                 join emprestimo\n" +
-                        "                 using(prontuario_leitor) \n" +
-                        "                 join categoria_leitor c\n" +
-                        "                 using(codigo_categoria))\n" +
-                        "where e.data_dev > ? or\n" +
+                        "using(id_obra)"+
+                        "where (e.data_dev < ? and e.status = 'EM ANDAMENTO') or\n" +
                         "e.status = 'EM ANDAMENTO'";
         
         String sql = String.format("select t.* from (select e.*, rownum rnum from (%s)e where rownum <= ?)t where rnum >= ?", query);
-                            
-        
-        List<List<String>> lista = new ArrayList<>();      
+                              
+        List<List<String>> lista = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         try (
             Connection con = conexao.getConnection();
@@ -242,10 +238,11 @@ public class EmprestimoDAO {
                 while(rs.next()) {
                     List<String> dados = new ArrayList<>();
                     String nome, titulo, nro_ed, descricao, cod_exemplar, data_emp, data_dev;
+                    List<String> aux = new ArrayList<>();
                     
-                    data_emp = String.valueOf(rs.getDate(1));
+                    data_emp = rs.getDate(1).toLocalDate().format(formatter);
                     dados.add(data_emp);
-                    data_dev = String.valueOf(rs.getDate(2));
+                    data_dev = rs.getDate(2).toLocalDate().format(formatter);
                     dados.add(data_dev);
                     titulo = rs.getString(3);
                     dados.add(titulo);
@@ -253,11 +250,14 @@ public class EmprestimoDAO {
                     dados.add(nro_ed);
                     cod_exemplar = String.valueOf(rs.getInt(5));
                     dados.add(cod_exemplar);
-                    descricao = rs.getString(6);
-                    dados.add(descricao);
-                    nome = rs.getString(7);
-                    dados.add(nome);
                     
+                    aux = recuperaLeitor(con, rs.getInt(6));
+                    
+                    nome = aux.get(0);
+                    dados.add(nome); 
+                    descricao = aux.get(1);
+                    dados.add(descricao);
+
                     lista.add(dados);
                 }
 
@@ -267,5 +267,58 @@ public class EmprestimoDAO {
         catch(SQLException erro) {
             throw new RuntimeException(erro);
         }
-    } 
+    }
+    
+    private List<String> recuperaLeitor(Connection con, int prontuario){
+        String sql = "select l.nome, c.descricao \n" +
+                     "from leitor l    \n" +
+                     "join categoria_leitor c\n" +
+                     "using(codigo_categoria)\n" +
+                     "where l.prontuario_leitor = ?";
+        List<String> leitores = new ArrayList<>();
+       
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            pStat.setInt(1, prontuario);
+            pStat.executeUpdate();
+            try(ResultSet rs = pStat.executeQuery()){
+                if(rs.next()){
+                    leitores.add(rs.getString(1));
+                    leitores.add(rs.getString(2));
+                }
+                
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return leitores;
+    }
+    
+    
+    public int buscaTotalPendentes(){
+        ConexaoBD conexao = ConexaoBD.getInstance();
+        String sql = "select count(*)\n" +
+                     "from emprestimo e\n" +
+                     "where (e.data_dev < SYSDATE and e.status = 'EM ANDAMENTO') or\n" +
+                     "e.status = 'EM ANDAMENTO'";
+        int qtd = 0;
+        
+        try (
+            Connection con = conexao.getConnection();
+            PreparedStatement pStat = con.prepareStatement(sql))
+        {
+            
+                
+            pStat.executeUpdate();
+            try(ResultSet rs = pStat.executeQuery()){
+                if(rs.next()){
+                    qtd = rs.getInt(1);
+                }
+                return qtd;
+            }
+
+            }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    
 }
