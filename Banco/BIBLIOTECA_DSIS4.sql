@@ -9,7 +9,7 @@ VALUES (1,'25-10-2018','23-10-2018','EM ANDAMENTO',1,1710052,1);
  
 select * from obra_literaria;
 select * from emprestimo;
-UPDATE emprestimo SET data_dev = '25-11-18' WHERE status = 'EM ANDAMENTO' AND codigo_exemplar = 3;
+UPDATE emprestimo SET data_dev = '25-11-18', status = 'EM ANDAMENTO' where codigo_emp = 2;
 UPDATE exemplar SET status = 'EMPRESTADO' WHERE status = 'DISPONIVEL' AND codigo_exemplar = 1;
 select * from exemplar;
 select * from funcionario;

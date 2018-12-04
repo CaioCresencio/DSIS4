@@ -64,6 +64,32 @@ public class ExemplarDAO {
             throw new RuntimeException(erro);
         }
     }
+    
+    public Exemplar buscaExemplar(int codigo_exemplar){
+        String sql = "select codigo_exemplar, status, numero_exemplar, id_obra from exemplar where codigo_exemplar = ?";
+        Exemplar exemplar = null;
+        try(                
+                Connection con = ConexaoBD.getInstance().getConnection();
+                PreparedStatement pStat = con.prepareStatement(sql);
+            ){
+            pStat.setInt(1, codigo_exemplar);
+            
+            try(ResultSet rs = pStat.executeQuery()){
+                if(rs.next()){
+                    int id = rs.getInt(1);
+                    boolean disponivel = rs.getString(2).equals("DISPONIVEL");
+                    int numero = rs.getInt(3);
+                    int id_obra = rs.getInt(4);
+                    exemplar = new Exemplar(id,disponivel, numero, id_obra);
+
+                }
+                
+                return exemplar;
+            }
+        }catch(SQLException erro){
+            throw new RuntimeException(erro);
+        }
+    }
        
     public int totalDisponiveis(int codigoObra){
         String sql = "select count(*) from exemplar where status = 'DISPONIVEL' and id_obra = ?";
