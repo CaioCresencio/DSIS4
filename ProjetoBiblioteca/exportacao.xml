@@ -13,6 +13,7 @@
         <palavras-chave>
             <palavra-chave>euton</palavra-chave>
         </palavras-chave>
+        <disponiveis>2</disponiveis>
     </obra>
     <obra>
         <isbn>1234567</isbn>
@@ -27,6 +28,7 @@
         <palavras-chave>
             <palavra-chave>Jovens</palavra-chave>
         </palavras-chave>
+        <disponiveis>1</disponiveis>
     </obra>
     <obra>
         <isbn>4567</isbn>
@@ -41,6 +43,7 @@
         <palavras-chave>
             <palavra-chave>Jovens</palavra-chave>
         </palavras-chave>
+        <disponiveis>0</disponiveis>
     </obra>
     <obra>
         <isbn>5354567</isbn>
@@ -55,26 +58,29 @@
         <palavras-chave>
             <palavra-chave>Jovens</palavra-chave>
         </palavras-chave>
+        <disponiveis>2</disponiveis>
     </obra>
     <obra>
         <isbn>456DBA</isbn>
-        <edicao>0</edicao>
+        <edicao>5</edicao>
         <data>15/02/2012</data>
         <editora>Sabugosa NEW</editora>
         <titulo>C como sofrer, a revolta!</titulo>
         <categoria>Livro</categoria>
         <autores/>
         <palavras-chave/>
+        <disponiveis>0</disponiveis>
     </obra>
     <obra>
         <isbn>321DCA</isbn>
-        <edicao>0</edicao>
+        <edicao>3</edicao>
         <data>20/09/2001</data>
         <editora>Sabugosa NEW</editora>
         <titulo>PHP como sofrer</titulo>
         <categoria>Livro</categoria>
         <autores/>
         <palavras-chave/>
+        <disponiveis>0</disponiveis>
     </obra>
     <obra>
         <isbn>12312512</isbn>
@@ -89,15 +95,17 @@
         <palavras-chave>
             <palavra-chave>Caiera</palavra-chave>
         </palavras-chave>
+        <disponiveis>2</disponiveis>
     </obra>
     <obra>
         <isbn>333BBA</isbn>
-        <edicao>0</edicao>
+        <edicao>1</edicao>
         <data>21/10/2015</data>
         <editora>IFSP</editora>
         <titulo>Jogos educacionais</titulo>
         <categoria>Trabalho acadêmico</categoria>
         <autores/>
         <palavras-chave/>
+        <disponiveis>0</disponiveis>
     </obra>
 </obras>

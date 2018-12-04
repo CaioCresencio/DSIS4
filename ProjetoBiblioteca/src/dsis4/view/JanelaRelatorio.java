@@ -11,11 +11,11 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,6 +36,7 @@ public class JanelaRelatorio extends JanelaPadrao{
     private JButton buttonProximo;
     private JButton buttonFechar;
     private JDateChooser calendario;
+    private JLabel labelCalendario;
     
     private int min;
     private int max;
@@ -48,8 +49,10 @@ public class JanelaRelatorio extends JanelaPadrao{
     }
     
     private void criarComponentes() {
-        panel = new JPanel();
+        panel = new JPanel(super.layout);
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Listagem"));
+        
+        labelCalendario = new JLabel("Selecione a data: ");
         
         model = new DefaultTableModel();
         table = new JTable();
@@ -86,12 +89,14 @@ public class JanelaRelatorio extends JanelaPadrao{
     }
     
     private void fixarComponentes(){
-        adicionarComponente(calendario, 0,0,GridBagConstraints.CENTER, 4, 1,GridBagConstraints.BOTH, panel);
-        adicionarComponente(buttonAtualizar, 0,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
-        adicionarComponente(buttonAnterior, 0,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
-        adicionarComponente(buttonProximo, 0,3, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
-        adicionarComponente(buttonFechar, 0,4,GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
-        adicionarComponente(scroll, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
+        
+        adicionarComponente(labelCalendario, 0,0,GridBagConstraints.CENTER, 2, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(calendario, 0,2,GridBagConstraints.CENTER,2, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(scroll, 1,0, GridBagConstraints.CENTER, 4, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(buttonAtualizar, 2,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(buttonAnterior, 2,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(buttonProximo, 2,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
+        adicionarComponente(buttonFechar, 2,3,GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
         adicionarComponente(panel, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
     
