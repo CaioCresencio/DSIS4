@@ -73,6 +73,7 @@ public class JanelaExportacao extends JanelaPadrao {
     private void exportarPDF(ActionEvent e){
         GravadorPDF g = new GravadorPDF("relatorio.pdf");
         g.criaPDF(obraDAO.listarObras());
+        System.out.println(obraDAO.listarObras().toString());
         JOptionPane.showMessageDialog(null, "Exportação PDF realizada!");
     }
     

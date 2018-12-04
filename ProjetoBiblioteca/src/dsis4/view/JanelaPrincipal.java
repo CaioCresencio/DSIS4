@@ -96,7 +96,8 @@ public class JanelaPrincipal extends JFrame{
         carregarJanela(jc);
     }
     public void abrirJanelaEmprestimo(ActionEvent e){
-        
+        JanelaEmprestimo je = new JanelaEmprestimo("Empréstimo de obras");
+        carregarJanela(je);
     }
     public void abrirJanelaDevoulcao(ActionEvent e){
         

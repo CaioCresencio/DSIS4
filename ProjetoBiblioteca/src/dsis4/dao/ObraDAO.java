@@ -195,6 +195,7 @@ public class ObraDAO {
         String sql = "select id_obra , isbn, qtd_exemplares , nrm_edicao,data_publicacao, editora,titulo_obra ,codigo_categoria, cl.descricao from"
                 + " obra_literaria JOIN categoria_literaria cl USING (codigo_categoria) ";
         ListaObra listaObra = null;
+        ExemplarDAO eDAO = new ExemplarDAO();
         List<ObraLiteraria> lista = new ArrayList<>();
         try(Connection con = ConexaoBD.getInstance().getConnection()){
             try(PreparedStatement pStat = con.prepareStatement(sql)){
@@ -213,7 +214,8 @@ public class ObraDAO {
                         int codigo_categoria = rs.getInt("codigo_categoria");
                         String descricao = rs.getString("descricao");
                         CategoriaObra co = new CategoriaObra(codigo_categoria,descricao);
-                        ObraLiteraria obra = new ObraLiteraria(ibsn, qtd_exemplares, nrm_edicao, data, editora, titulo, co, getAutores(con, id_obra),getAutores(con, id_obra));
+                                
+                        ObraLiteraria obra = new ObraLiteraria(id_obra, ibsn, qtd_exemplares, nrm_edicao, data, editora, titulo, co, getAutores(con, id_obra),getAutores(con, id_obra), eDAO.totalDisponiveis(id_obra));
                         lista.add(obra);
                     }
                 }

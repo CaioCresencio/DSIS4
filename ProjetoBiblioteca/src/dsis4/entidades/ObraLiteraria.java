@@ -24,7 +24,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
@@ -38,14 +37,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 @JsonTypeName("obra")
 public class ObraLiteraria {
-    //@XmlTransient
+    
     private transient int idObra;
     
     @XmlElement(name = "isbn")
     
     private String isbn;
-    
-    //@XmlTransient
+  
     private transient int qtdExemplares;
     
     @SerializedName("edicao")
@@ -83,6 +81,7 @@ public class ObraLiteraria {
     private List<String> palavraChave;
     
     
+    private int disponiveis;
 
 
     
@@ -99,10 +98,24 @@ public class ObraLiteraria {
         this.qtdExemplares = qtdExemplares;
         this.dataPublicacao = dataPublicacao;
         this.editora = editora;
+        this.nrmEdicao = nrmEdicao;
         this.titulo = titulo;
         this.categoria = categoria;
         this.autores = autores;
         this.palavraChave = palavrasChave;
+    }
+    public ObraLiteraria(int idObra, String isbn,int qtdExemplares, int nrmEdicao,LocalDate dataPublicacao,String editora,String titulo,CategoriaObra categoria,List<String> autores, List<String> palavrasChave, int qtdDisponiveis){
+        this.idObra = idObra;
+        this.isbn = isbn;
+        this.qtdExemplares = qtdExemplares;
+        this.dataPublicacao = dataPublicacao;
+        this.editora = editora;
+        this.nrmEdicao = nrmEdicao;
+        this.titulo = titulo;
+        this.categoria = categoria;
+        this.autores = autores;
+        this.palavraChave = palavrasChave;
+        this.disponiveis = qtdDisponiveis;
     }
     
     public List<String> getAutores(){
@@ -185,11 +198,18 @@ public class ObraLiteraria {
     public void addPalavraChave(String palavra) {
         palavraChave.add(palavra);
     }
+    
+    public int getQtdDisponiveis(){
+        return disponiveis;
+    }
+    public void setQtdDisponiveis(int disponiveis){
+        this.disponiveis = disponiveis;
+    }
 
     @Override
     public String toString() {
-        //return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s Categoria: %s", isbn, titulo, autores.toString(), palavraChave.toString(),categoria.getDescricao());
-    return String.format("Isbn: %s Titulo: %s Autores: %s Palavras-Chave %s  Categoria: %s", isbn, titulo, autores.toString(),palavraChave.toString() ,categoria.getDescricao());
+          return String.format("Isbn: %s Titulo: %s | Autores: %s \nNumero de edição: %d | Palavras-Chave: %s | Categoria: %s\nData publicação: %s | Editora: %s |\nAcervo da obra: %d | Exemplares disponiveis: %d"
+                  , isbn, titulo, autores.toString(),nrmEdicao,palavraChave.toString() ,categoria.getDescricao(),dataPublicacao,editora,qtdExemplares,disponiveis);
     }
 
     /**
