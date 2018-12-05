@@ -5,12 +5,15 @@
  */
 package dsis4.view;
 
+import dsis4.fabrica.FabricaLeituraAbstrata;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +34,11 @@ public class JanelaCarregamento extends JanelaPadrao{
     private JPanel painelBotao;
     private JTextField caminho;
     private JLabel labelCaminho;
+    private FabricaLeituraAbstrata fab;
+    private JComboBox comboLeitor;
+    private JLabel labelLeitor;
+    
+    private String[] arrayExtensao;
     
     
     public JanelaCarregamento(String titulo){
@@ -45,6 +53,9 @@ public class JanelaCarregamento extends JanelaPadrao{
         painel = new JPanel(super.layout);
         painelArquivo = new JPanel(super.layout);
         painelBotao = new JPanel(super.layout);
+        
+        labelLeitor = new JLabel("Selecione o leitor específico:");
+        comboLeitor = new JComboBox(TipoGravador.getValues());
         
         caminho = new JTextField(15);
         caminho.setPreferredSize(new Dimension(30,30));
@@ -82,14 +93,16 @@ public class JanelaCarregamento extends JanelaPadrao{
         System.out.println(chooser.getDialogTitle());
         System.out.println(chooser.getSelectedFile());
         if(retorno == JFileChooser.APPROVE_OPTION){
-            System.out.println("Pego!");
+            
             caminho.setText(chooser.getSelectedFile().getPath());
+            arrayExtensao = caminho.getText().split("\\.");
         }else{
             
         }
     }
     private void carregarArquivo(ActionEvent e){
-        
+        fab = FabricaLeituraAbstrata.getFabrica(arrayExtensao[1]);
+        fab.getAlgoritmo(title, title);
     }
     
 }

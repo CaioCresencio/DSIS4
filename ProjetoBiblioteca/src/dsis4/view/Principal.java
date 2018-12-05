@@ -47,15 +47,15 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(1,1710125);
 
-        //JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
-         FabricaLeituraAbstrata fab = FabricaLeituraAbstrata.getFabrica("JSON");
+         /*FabricaLeituraAbstrata fab = FabricaLeituraAbstrata.getFabrica("JSON");
          ListaObra lista  = (ListaObra)fab.getAlgoritmo("GSON","exportacao.json").ler();
          System.out.println(lista.toString());
          
          FabricaGravacaoAbstrata fab2 = FabricaGravacaoAbstrata.getFabrica("JSON");
          fab2.getAlgoritmo("JACKSON", "teste.json").gravar(lista);
-//        LeitorSAX s = new LeitorSAX("obra.xml");
+//        LeitorSAX s = new LeitorSAX("obra.xml");*/
 //        
 //        ListaObra lista = (ListaObra) s.ler();
 //        System.out.println(lista.getLista().get(0).getDataPublicacao());
