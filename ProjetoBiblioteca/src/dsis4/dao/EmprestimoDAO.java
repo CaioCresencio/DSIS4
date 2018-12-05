@@ -321,4 +321,28 @@ public class EmprestimoDAO {
         }
     }
     
+    public int getCodigoEmprestimo(int prontuario, int exemplar){
+        ConexaoBD conexao = ConexaoBD.getInstance();
+        String sql = "SELECT codigo_emp FROM emprestimo WHERE status = 'EM ANDAMENTO' AND codigo_exemplar = ? AND" +
+                     "prontuario_leitor = ?";
+        int codEmp = 0;
+        try (
+            Connection con = conexao.getConnection();
+            PreparedStatement pStat = con.prepareStatement(sql))
+        {
+            pStat.setInt(1, exemplar);
+            pStat.setInt(2, prontuario);
+            
+            try(ResultSet rs = pStat.executeQuery()){
+                if(rs.next()){
+                    codEmp = rs.getInt(1);
+                }
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return codEmp;
+        
+    }
+    
 }
