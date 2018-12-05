@@ -6,12 +6,14 @@
 package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
+import dsis4.entidades.Exemplar;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 
 /**
@@ -20,19 +22,28 @@ import java.time.Period;
  */
 public class DevolucaoDAO {
     
-    public void devolver(int exemplar,int prontuario_l){
+    public void geraDevolucao(List<Exemplar> exemplares, int prontuario_l){
+    
+        for(Exemplar e : exemplares){
+            devolver(e.getId(), prontuario_l);
+        }
+    
+    }
+
+    private void devolver(int exemplar,int prontuario_l){
 
         try(Connection con = ConexaoBD.getInstance().getConnection()){
             con.setAutoCommit(false);
             if(existeEmprestimo(con, exemplar, prontuario_l)){
                 if(estaAtrasado(con, exemplar)){
-                    if(emprestimosEmAndamento(con, exemplar) > 0){
+                    if(emprestimosEmAndamento(con, exemplar, prontuario_l ) > 0){
                         bloqueiaUsuario(con, exemplar);                       
                     }else{
                         desbloquearUsuario(con, exemplar);     
                     }
                 }
-                devolverExemplar(con, exemplar);
+                EmprestimoDAO e = new EmprestimoDAO();
+                devolverExemplar(con, exemplar, prontuario_l, e.getCodigoEmprestimo(prontuario_l, exemplar));
                 con.commit();
                 System.out.println("Devolvido com sucesso!");
             }else{
@@ -45,9 +56,10 @@ public class DevolucaoDAO {
          }
     }
     
-    private void devolverExemplar(Connection con, int exemplar){
+    private void devolverExemplar(Connection con, int exemplar, int prontuario_l, int cod_emprestimo){
         String sql_exemplar = "UPDATE exemplar SET status = 'DISPONIVEL' WHERE status = 'EMPRESTADO' AND codigo_exemplar = ?";
         String sql_emprestimo = "UPDATE emprestimo SET status = 'CONCLUIDO' WHERE status = 'EM ANDAMENTO' AND codigo_exemplar = ? ";
+        String sql_devolucao = "INSERT INTO devolucao values(seq_dev.nextval, SYSDATE, ?, ?, ?)";
          try(PreparedStatement pStat = con.prepareStatement(sql_exemplar)){
             pStat.setInt(1, exemplar);
             pStat.executeUpdate();
@@ -56,6 +68,13 @@ public class DevolucaoDAO {
                 pStat2.setInt(1, exemplar);
                 pStat2.executeUpdate();
                 System.out.println("eita");
+                try(PreparedStatement pStat3 = con.prepareStatement(sql_devolucao)){
+                    pStat3.setInt(1, cod_emprestimo);
+                    pStat3.setInt(2, exemplar);
+                    pStat3.setInt(3, prontuario_l);
+                    pStat3.executeUpdate();
+                    System.out.println("eita2");
+                }
             }catch(SQLException e){
                 throw new RuntimeException(e);
             }
@@ -140,9 +159,8 @@ public class DevolucaoDAO {
         return retorno;
     }
     
-    private int emprestimosEmAndamento(Connection con, int exemplar){
-        String sql = "SELECT COUNT(codigo_emp) FROM emprestimo WHERE status = 'EM ANDAMENTO' AND codigo_exemplar <>  ? AND prontuario_leitor = " +
-"            (SELECT prontuario_leitor FROM emprestimo  WHERE codigo_exemplar = ?) ";
+    private int emprestimosEmAndamento(Connection con, int exemplar, int prontuario_l){
+        String sql = "SELECT COUNT(codigo_emp) FROM emprestimo WHERE status = 'EM ANDAMENTO' AND codigo_exemplar =  ? AND prontuario_leitor = ?";
         int qtd = 0;
         try(PreparedStatement pStat = con.prepareStatement(sql)){
             pStat.setInt(1, exemplar);
