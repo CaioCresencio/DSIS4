@@ -345,4 +345,21 @@ public class EmprestimoDAO {
         
     }
     
+    public List<Exemplar> getListExemplares(){
+        List<Exemplar> listaExemplar = new ArrayList<>();
+        String sql = "SELECT ";
+        try(Connection con = ConexaoBD.getInstance().getConnection();
+            PreparedStatement pStat = con.prepareStatement(sql)){
+            pStat.executeUpdate();
+            try(ResultSet rs = pStat.executeQuery()){
+                
+            }catch(SQLException e){
+                
+            }
+        }catch(SQLException e){
+            
+        }
+        return listaExemplar;
+    }
+    
 }

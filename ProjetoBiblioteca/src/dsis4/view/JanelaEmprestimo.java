@@ -5,14 +5,23 @@
  */
 package dsis4.view;
 
+import dsis4.dao.EmprestimoDAO;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -30,13 +39,21 @@ public class JanelaEmprestimo extends JanelaPadrao {
     private JTextField fieldFuncionario;
     private JTextField fieldExemplar;
     
+    private JButton botaoAdicionar;
+    private JButton botaoRemover;
+    private JButton botaoCadastrar;
+    
     private JTable table;
     private DefaultTableModel model;
     private JScrollPane scroll;
     
+    private EmprestimoDAO emprestimoDAO;
+    
+    
     public JanelaEmprestimo(String titulo) {
         super(titulo);
         carregarComponentes();
+        emprestimoDAO = new EmprestimoDAO();
     }
     
     private void carregarComponentes(){
@@ -57,14 +74,32 @@ public class JanelaEmprestimo extends JanelaPadrao {
         
                 
         model = new DefaultTableModel();
-        table = new JTable(3,1);
+        model.addColumn("Codigo dos exemplares");
+        
+        table = new JTable();
         table.setModel(model);
         table.setFillsViewportHeight(true);
-        model.addColumn("Codigo dos exemplares");
-        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+       
+        JTableHeader header = table.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getPreferredSize().width,30));
+        
+        ImageIcon iconAdc = new ImageIcon("imgs/icon_adicionar.png");
+        ImageIcon iconRem = new ImageIcon("imgs/icon_remover.png");
+        ImageIcon iconCad = new ImageIcon("imgs/icon_cadastro.png");
+        
+        botaoAdicionar = new JButton(iconAdc);
+        botaoAdicionar.addActionListener(this::adicionarExemplar);
+        botaoRemover = new JButton(iconRem);
+        botaoRemover.addActionListener(this::removerExemplar);
+        botaoCadastrar = new JButton("Cadastro",iconCad);
+        botaoCadastrar.addActionListener(this::cadastrarExemplares);
+        
         
         scroll = new JScrollPane();
         scroll.setViewportView(table);
+        scroll.setPreferredSize(new Dimension(200,header.getPreferredSize().height+3*table.getRowHeight()));
+       
+       
         
         fixarComponentes();
        
@@ -78,13 +113,53 @@ public class JanelaEmprestimo extends JanelaPadrao {
         adicionarComponente(fieldFuncionario, 1,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
         
         adicionarComponente(labelExemplares,0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
-        adicionarComponente(fieldExemplar, 0,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
-        adicionarComponente(scroll,1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
+        adicionarComponente(fieldExemplar, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
+        adicionarComponente(botaoAdicionar, 1,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
+        adicionarComponente(botaoRemover, 1,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel2);
+        adicionarComponente(scroll,2,0, GridBagConstraints.CENTER, 1,2 ,GridBagConstraints.BOTH, panel2);
+        adicionarComponente(botaoCadastrar,2,1, GridBagConstraints.CENTER, 2,1 ,GridBagConstraints.BOTH, panel2);
         
         adicionarComponente(panel1, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panelPrincipal);
         adicionarComponente(panel2, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panelPrincipal);
         adicionarComponente(panelPrincipal, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
+    
+    private void cadastrarExemplares(ActionEvent e){
+        List<Integer> lista = getExemplares();
+        if( lista.size() > 0){
+            //emprestimoDAO.
+        }
+    }
+    
+    private List<Integer> getExemplares(){
+        List<Integer> exemplares = new ArrayList<>();
+        if(model.getRowCount() > 0){
+            for(int i = 0; i< model.getRowCount(); i++){
+               exemplares.add(Integer.parseInt(String.valueOf(model.getValueAt(i, 0))));
+            }
+        }
+        return exemplares;
+    }
+    
+    private void adicionarExemplar(ActionEvent e){
+        if(model.getRowCount() < 3 ){
+            Object[] o = new Object[1];
+            try{
+                int i = Integer.parseInt(fieldExemplar.getText());
+                o[0] = i;
+                model.addRow(o);
+                fieldExemplar.setText("");
+            }catch(NumberFormatException erro){
+                JOptionPane.showMessageDialog(null,"Coloque um exemplar válido!");
+            }
+        }
+    }
+    private void removerExemplar(ActionEvent e){
+        if(model.getRowCount() > 0){
+            model.removeRow(model.getColumnCount()-1);
+        }
+    }
+    
     
     
 }
