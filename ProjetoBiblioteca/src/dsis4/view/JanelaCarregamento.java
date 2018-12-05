@@ -6,10 +6,11 @@
 package dsis4.view;
 
 import dsis4.fabrica.FabricaLeituraAbstrata;
+import dsis4.util.AlgoritmoLeitura;
+import dsis4.util.TipoArquivo;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,6 +40,7 @@ public class JanelaCarregamento extends JanelaPadrao{
     private JLabel labelLeitor;
     
     private String[] arrayExtensao;
+    private String nomeArquivo;
     
     
     public JanelaCarregamento(String titulo){
@@ -55,7 +57,7 @@ public class JanelaCarregamento extends JanelaPadrao{
         painelBotao = new JPanel(super.layout);
         
         labelLeitor = new JLabel("Selecione o leitor específico:");
-        comboLeitor = new JComboBox(TipoGravador.getValues());
+        comboLeitor = new JComboBox(TipoArquivo.getValues());
         
         caminho = new JTextField(15);
         caminho.setPreferredSize(new Dimension(30,30));
@@ -78,6 +80,7 @@ public class JanelaCarregamento extends JanelaPadrao{
         adicionarComponente(botaoCaminho ,0,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, painelArquivo);
         adicionarComponente(painelArquivo, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painel);
         adicionarComponente(botaoCarregar, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painelBotao);
+        adicionarComponente(comboLeitor, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painelBotao);
         adicionarComponente(painelBotao, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painel);
         adicionarComponente(painel, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,this);
        
@@ -90,11 +93,10 @@ public class JanelaCarregamento extends JanelaPadrao{
         chooser.setFileFilter(filtro);
         int retorno = chooser.showOpenDialog(this);
       
-        System.out.println(chooser.getDialogTitle());
-        System.out.println(chooser.getSelectedFile());
         if(retorno == JFileChooser.APPROVE_OPTION){
             
             caminho.setText(chooser.getSelectedFile().getPath());
+            nomeArquivo = chooser.getSelectedFile().getName();
             arrayExtensao = caminho.getText().split("\\.");
         }else{
             
@@ -102,7 +104,9 @@ public class JanelaCarregamento extends JanelaPadrao{
     }
     private void carregarArquivo(ActionEvent e){
         fab = FabricaLeituraAbstrata.getFabrica(arrayExtensao[1]);
-        fab.getAlgoritmo(title, title);
+        AlgoritmoLeitura algo = fab.getAlgoritmo(comboLeitor.getSelectedItem().toString(), nomeArquivo);
+        
+        System.out.println(algo.ler().toString());
     }
     
 }
