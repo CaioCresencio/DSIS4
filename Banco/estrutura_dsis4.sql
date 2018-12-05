@@ -167,10 +167,8 @@ CREATE TABLE devolucao (
     codigo_emp INT NOT NULL,
     codigo_exemplar INT NOT NULL,
     prontuario_leitor INT NOT NULL,
-    prontuario_func INT NOT NULL,
     FOREIGN KEY (codigo_emp) REFERENCES emprestimo(codigo_emp),
     FOREIGN KEY (codigo_exemplar) REFERENCES exemplar(codigo_exemplar),
     FOREIGN KEY (prontuario_leitor) REFERENCES leitor(prontuario_leitor),
-    FOREIGN KEY (prontuario_func) REFERENCES funcionario(prontuario_func)
 );
 
