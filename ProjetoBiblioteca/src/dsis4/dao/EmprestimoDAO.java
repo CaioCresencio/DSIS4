@@ -323,8 +323,7 @@ public class EmprestimoDAO {
     
     public int getCodigoEmprestimo(int prontuario, int exemplar){
         ConexaoBD conexao = ConexaoBD.getInstance();
-        String sql = "SELECT codigo_emp FROM emprestimo WHERE status = 'EM ANDAMENTO' AND codigo_exemplar = ? AND" +
-                     "prontuario_leitor = ?";
+        String sql = "SELECT codigo_emp FROM emprestimo WHERE status = 'EM ANDAMENTO' AND codigo_exemplar = ? AND prontuario_leitor = ?";
         int codEmp = 0;
         try (
             Connection con = conexao.getConnection();
