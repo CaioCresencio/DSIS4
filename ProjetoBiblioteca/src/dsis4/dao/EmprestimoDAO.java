@@ -200,7 +200,7 @@ public class EmprestimoDAO {
         boolean retorno = false;
         
         for(int i = 0; i<exemplares.size()&&!retorno; i++){
-            for(int j = i+1; j<exemplares.size()&&!retorno; i++){
+            for(int j = i+1; j<exemplares.size()&&!retorno; j++){
                 if(exemplares.get(i).getId_obra() == exemplares.get(j).getId_obra()){
                     retorno = true;
                 }  
@@ -344,19 +344,36 @@ public class EmprestimoDAO {
         
     }
     
-    public List<Exemplar> getListExemplares(){
+    public List<Exemplar> getListExemplares(List<Integer> listaCodigoE){
         List<Exemplar> listaExemplar = new ArrayList<>();
-        String sql = "SELECT ";
+        String sql = "SELECT codigo_exemplar, status, numero_exemplar,id_obra FROM exemplar WHERE codigo_exemplar = ?";
         try(Connection con = ConexaoBD.getInstance().getConnection();
             PreparedStatement pStat = con.prepareStatement(sql)){
-            pStat.executeUpdate();
-            try(ResultSet rs = pStat.executeQuery()){
+            for(Integer i: listaCodigoE){
                 
-            }catch(SQLException e){
-                
+                pStat.setInt(1, i);
+                pStat.executeUpdate();
+            
+                try(ResultSet rs = pStat.executeQuery()){
+                    while(rs.next()){
+                        int coigo_exemplar = rs.getInt(1);
+                        String status_string = rs.getString(2);
+                        int numero_exemplar = rs.getInt(3);
+                        int idObra = rs.getInt(4);
+                        boolean status = false;
+                        if(status_string.equals("DISPONIVEL")){
+                            status = true;
+                        }
+                        Exemplar e = new Exemplar(coigo_exemplar,status, numero_exemplar,idObra);
+                        listaExemplar.add(e);
+                   
+                    }
+                }catch(SQLException erro){
+                    throw new RuntimeException(erro);
+                }
             }
         }catch(SQLException e){
-            
+            throw new RuntimeException(e);
         }
         return listaExemplar;
     }

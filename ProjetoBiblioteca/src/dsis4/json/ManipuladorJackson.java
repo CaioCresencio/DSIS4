@@ -10,19 +10,21 @@ import dsis4.entidades.ListaObra;
 import dsis4.entidades.ObraLiteraria;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import dsis4.util.AlgoritmoGravacaoJson;
+import dsis4.util.AlgoritmoLeituraJson;
 
 /**
  *
  * @author caio
  */
-public class ManipuladorJackson{
+public class ManipuladorJackson implements AlgoritmoGravacaoJson, AlgoritmoLeituraJson{
     private String arquivo;
     
     
     public ManipuladorJackson(String arquivo){
         this.arquivo = arquivo;
     }
-    
+    @Override
     public void gravar(Object o){
         ObjectMapper objectMapper = new ObjectMapper();
         try{
@@ -32,7 +34,8 @@ public class ManipuladorJackson{
             throw new RuntimeException(e);
         }
     }
-    public void ler(){
+    @Override
+    public Object ler(){
         ListaObra lista;
         ObjectMapper mapper = new ObjectMapper();
         try{
@@ -41,7 +44,7 @@ public class ManipuladorJackson{
         }catch(IOException e){
             throw new RuntimeException(e);
         }
-        
+        return new Object();
     }
     
     

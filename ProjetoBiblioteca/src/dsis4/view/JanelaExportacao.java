@@ -7,6 +7,7 @@ package dsis4.view;
 
 import dsis4.dao.ObraDAO;
 import dsis4.entidades.ListaObra;
+import dsis4.fabrica.FabricaGravacaoAbstrata;
 import dsis4.json.ManipuladorGson;
 import dsis4.relatorioPDF.GravadorPDF;
 import dsis4.xml.ManipuladorJAXB;
@@ -53,9 +54,9 @@ public class JanelaExportacao extends JanelaPadrao {
         botaoPDF = new JButton(iconPDF);
         botaoPDF.addActionListener(this::exportarPDF);
         botaoXML = new JButton(iconXML);
-        botaoXML.addActionListener(this::exportarXML);
+        botaoXML.addActionListener(this::exportarArquivo);
         botaoJSON = new JButton(iconJSON);
-        botaoJSON.addActionListener(this::exportarJSON);
+        botaoJSON.addActionListener(this::exportarArquivo);
         
         textoExportacao = new JLabel("Escolha uma opção de exportação");
         
@@ -76,11 +77,14 @@ public class JanelaExportacao extends JanelaPadrao {
         System.out.println(obraDAO.listarObras().toString());
         JOptionPane.showMessageDialog(null, "Exportação PDF realizada!");
     }
+    private void exportarArquivo(ActionEvent e){
+         FabricaGravacaoAbstrata fab2 = FabricaGravacaoAbstrata.getFabrica("");
+    }
     
     private void exportarXML(ActionEvent e){
        ManipuladorJAXB m = new ManipuladorJAXB("exportacao.xml");
        m.setClasses(ListaObra.class);
-       m.gravarXML(obraDAO.listarObras());
+       m.gravar(obraDAO.listarObras());
        JOptionPane.showMessageDialog(null, "Exportação XML realizada!");
     }
     

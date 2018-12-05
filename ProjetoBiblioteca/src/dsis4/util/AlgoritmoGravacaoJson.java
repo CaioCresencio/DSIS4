@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dsis4.xml;
+package dsis4.util;
 
 /**
  *
- * @author Gabriel
+ * @author caio
  */
-public interface AlgoritmoLeituraXML {
-    public abstract Object ler();
+public interface AlgoritmoGravacaoJson extends AlgoritmoGravacao{
+    
 }

@@ -16,13 +16,16 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.time.LocalDate;
+import dsis4.util.AlgoritmoGravacaoJson;
+import dsis4.util.AlgoritmoLeituraJson;
 
 /**
  *
  * @author caio
  */
-public class ManipuladorGson {
+public class ManipuladorGson implements AlgoritmoLeituraJson, AlgoritmoGravacaoJson{
     private String arquivo;
+    private Class clazz;
     
     public ManipuladorGson (String arquivo){
         this.arquivo = arquivo;
@@ -33,15 +36,16 @@ public class ManipuladorGson {
         this.arquivo = arquivo;
     }
     
-        
-    public <T extends Object> T ler(Class<T> clazz){
+    @Override
+    public Object ler(){
         GsonBuilder builder = new GsonBuilder();
+        Object t;
         
         builder.registerTypeAdapter(LocalDate.class,new GsonDataAdapter());
         builder.registerTypeAdapter(CategoriaObra.class, new GsonCategoriaObraAdapter());
         Gson gson  = builder.create();
         
-        T t = null;
+        t = null;
        
         
         try(Reader reader = new FileReader(arquivo)){
@@ -73,5 +77,14 @@ public class ManipuladorGson {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * @param clazz the clazz to set
+     */
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
+    }
+
+ 
     
 }

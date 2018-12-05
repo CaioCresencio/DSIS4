@@ -1,14 +1,99 @@
 {
   "obras" : [ {
     "obra" : {
-      "isbn" : "9788543004792",
-      "editora" : "Pearson Prentice Hall",
-      "titulo" : "Java: como programar",
-      "categoria" : "livro",
-      "autores" : [ "Paul Deitel", "Harvey Deitel" ],
-      "edicao" : 10,
-      "data" : "30-09-2016",
-      "palavras-chave" : [ "Java", "Linguagem de programação de computador" ]
+      "isbn" : "123456",
+      "editora" : "Castanha",
+      "titulo" : "JAsvaldo",
+      "categoria" : "Livro",
+      "autores" : [ "euton" ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "25-11-2018",
+      "palavras-chave" : [ "euton" ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "1234567",
+      "editora" : "Teste",
+      "titulo" : "Aldo",
+      "categoria" : "Livro",
+      "autores" : [ "Jovens" ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "25-11-2018",
+      "palavras-chave" : [ "Jovens" ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "4567",
+      "editora" : "Tste2",
+      "titulo" : "oloco",
+      "categoria" : "Livro",
+      "autores" : [ "Jovens" ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "25-11-2018",
+      "palavras-chave" : [ "Jovens" ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "5354567",
+      "editora" : "Tste3",
+      "titulo" : "bicho",
+      "categoria" : "Livro",
+      "autores" : [ "Jovens" ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "25-11-2018",
+      "palavras-chave" : [ "Jovens" ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "456DBA",
+      "editora" : "Sabugosa NEW",
+      "titulo" : "C como sofrer, a revolta!",
+      "categoria" : "Livro",
+      "autores" : [ ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "15-02-2012",
+      "palavras-chave" : [ ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "321DCA",
+      "editora" : "Sabugosa NEW",
+      "titulo" : "PHP como sofrer",
+      "categoria" : "Livro",
+      "autores" : [ ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "20-09-2001",
+      "palavras-chave" : [ ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "12312512",
+      "editora" : "TESTE",
+      "titulo" : "Osvaldo",
+      "categoria" : "Jornal",
+      "autores" : [ "Caiera" ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "10-12-2018",
+      "palavras-chave" : [ "Caiera" ]
+    }
+  }, {
+    "obra" : {
+      "isbn" : "333BBA",
+      "editora" : "IFSP",
+      "titulo" : "Jogos educacionais",
+      "categoria" : "Trabalho acadêmico",
+      "autores" : [ ],
+      "qtdDisponiveis" : 0,
+      "edicao" : 0,
+      "data" : "21-10-2015",
+      "palavras-chave" : [ ]
     }
   } ]
 }

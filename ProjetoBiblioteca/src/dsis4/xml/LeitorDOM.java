@@ -5,6 +5,7 @@
  */
 package dsis4.xml;
 
+import dsis4.util.AlgoritmoLeituraXML;
 import dsis4.entidades.CategoriaObra;
 import dsis4.entidades.ListaObra;
 import dsis4.entidades.ObraLiteraria;
@@ -108,6 +109,8 @@ public class LeitorDOM implements AlgoritmoLeituraXML  {
         
         return document;
     }
+
+
      
     
 }  

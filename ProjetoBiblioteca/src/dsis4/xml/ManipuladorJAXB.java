@@ -1,5 +1,6 @@
 package dsis4.xml;
 
+import dsis4.util.AlgoritmoLeituraXML;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -47,7 +48,7 @@ public class ManipuladorJAXB implements AlgoritmoLeituraXML{
     }
     
     
-    public void gravarXML(Object p){
+    public void gravar(Object p){
         
         try {
             JAXBContext contex = JAXBContext.newInstance(classes);

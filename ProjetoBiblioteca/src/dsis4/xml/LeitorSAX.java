@@ -5,6 +5,7 @@
  */
 package dsis4.xml;
 
+import dsis4.util.AlgoritmoLeituraXML;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

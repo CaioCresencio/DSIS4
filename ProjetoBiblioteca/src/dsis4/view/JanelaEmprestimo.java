@@ -6,6 +6,7 @@
 package dsis4.view;
 
 import dsis4.dao.EmprestimoDAO;
+import dsis4.entidades.Exemplar;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
@@ -54,6 +55,7 @@ public class JanelaEmprestimo extends JanelaPadrao {
         super(titulo);
         carregarComponentes();
         emprestimoDAO = new EmprestimoDAO();
+        
     }
     
     private void carregarComponentes(){
@@ -126,8 +128,15 @@ public class JanelaEmprestimo extends JanelaPadrao {
     
     private void cadastrarExemplares(ActionEvent e){
         List<Integer> lista = getExemplares();
+        
         if( lista.size() > 0){
-            //emprestimoDAO.
+            List<Exemplar> listaE;
+            listaE = emprestimoDAO.getListExemplares(lista);
+            if(listaE != null){
+                int prontuarioL = Integer.parseInt(fieldLeitor.getText());
+                int prontuarioF = Integer.parseInt(fieldFuncionario.getText());
+                emprestimoDAO.salvar(prontuarioL, listaE,prontuarioF);
+            }
         }
     }
     

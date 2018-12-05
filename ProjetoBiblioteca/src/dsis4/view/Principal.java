@@ -1,15 +1,10 @@
 package dsis4.view;
 
 
+
 import dsis4.entidades.ListaObra;
-
-import dsis4.relatorioPDF.GravadorPDF;
-import dsis4.xml.LeitorDOM;
-
-import dsis4.dao.EmprestimoDAO;
-import dsis4.entidades.Exemplar;
-import java.time.LocalDate;
-import java.util.List;
+import dsis4.fabrica.FabricaGravacaoAbstrata;
+import dsis4.fabrica.FabricaLeituraAbstrata;
 
 
 
@@ -52,9 +47,14 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(1,1710125);
 
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        //JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         
-                
+         FabricaLeituraAbstrata fab = FabricaLeituraAbstrata.getFabrica("JSON");
+         ListaObra lista  = (ListaObra)fab.getAlgoritmo("GSON","exportacao.json").ler();
+         System.out.println(lista.toString());
+         
+         FabricaGravacaoAbstrata fab2 = FabricaGravacaoAbstrata.getFabrica("JSON");
+         fab2.getAlgoritmo("JACKSON", "teste.json").gravar(lista);
 //        LeitorSAX s = new LeitorSAX("obra.xml");
 //        
 //        ListaObra lista = (ListaObra) s.ler();

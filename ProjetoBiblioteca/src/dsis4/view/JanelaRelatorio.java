@@ -7,6 +7,7 @@ package dsis4.view;
 
 import com.toedter.calendar.JDateChooser;
 import dsis4.dao.EmprestimoDAO;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -45,7 +47,8 @@ public class JanelaRelatorio extends JanelaPadrao{
     public JanelaRelatorio(String titulo) {
         super(titulo);
         criarComponentes();
-        configurarJanela();
+        pack();
+    
     }
     
     private void criarComponentes() {
@@ -58,6 +61,9 @@ public class JanelaRelatorio extends JanelaPadrao{
         table = new JTable();
         table.setModel(model);
         table.setFillsViewportHeight(true);
+        
+        JTableHeader header = table.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getPreferredSize().width,30));
                 
         model.addColumn("Data Emprestimo");
         model.addColumn("Data Devolucao");
@@ -69,6 +75,8 @@ public class JanelaRelatorio extends JanelaPadrao{
         
         scroll = new JScrollPane();
         scroll.setViewportView(table);
+        scroll.setPreferredSize(new Dimension(800,header.getPreferredSize().height+10*table.getRowHeight()));
+
 
         buttonAtualizar = new JButton("Carregar");
         buttonAtualizar.addActionListener(this::carregarPendentes);
@@ -99,13 +107,7 @@ public class JanelaRelatorio extends JanelaPadrao{
         adicionarComponente(buttonFechar, 2,3,GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel);
         adicionarComponente(panel, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
-    
-    private void configurarJanela() {
-        setSize(800,650);
-        //pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
+
     
     private void carregarPendentes(ActionEvent e) {
         EmprestimoDAO relatorio = new EmprestimoDAO();

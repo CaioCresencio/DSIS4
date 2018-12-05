@@ -8,7 +8,7 @@ package dsis4.view;
 import dsis4.view.botao.BotaoAbstrato;
 import dsis4.view.botao.BotaoJAXB;
 import dsis4.view.botao.BotaoSAX;
-import dsis4.xml.AlgoritmoLeituraXML;
+import dsis4.util.AlgoritmoLeituraXML;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

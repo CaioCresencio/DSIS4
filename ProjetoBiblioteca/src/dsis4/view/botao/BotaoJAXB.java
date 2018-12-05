@@ -6,7 +6,7 @@
 package dsis4.view.botao;
 
 import dsis4.entidades.ListaObra;
-import dsis4.xml.AlgoritmoLeituraXML;
+import dsis4.util.AlgoritmoLeituraXML;
 import dsis4.xml.ManipuladorJAXB;
 
 

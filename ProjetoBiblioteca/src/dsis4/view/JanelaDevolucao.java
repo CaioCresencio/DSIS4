@@ -57,7 +57,7 @@ public class JanelaDevolucao extends JanelaPadrao{
     public JanelaDevolucao(String titulo) {
         super(titulo);
         criarComponentes();
-        configurarJanela();
+        
     }
     
     private void criarComponentes() {
@@ -124,13 +124,7 @@ public class JanelaDevolucao extends JanelaPadrao{
         adicionarComponente(panel2, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panelPrincipal);
         adicionarComponente(panelPrincipal, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
-    
-    private void configurarJanela() {
-        setSize(800,650);
-        //pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
+
     
     private void geraDevolucao(ActionEvent e){
         

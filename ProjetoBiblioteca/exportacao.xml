@@ -13,7 +13,7 @@
         <palavras-chave>
             <palavra-chave>euton</palavra-chave>
         </palavras-chave>
-        <disponiveis>2</disponiveis>
+        <disponiveis>1</disponiveis>
     </obra>
     <obra>
         <isbn>1234567</isbn>
@@ -43,7 +43,7 @@
         <palavras-chave>
             <palavra-chave>Jovens</palavra-chave>
         </palavras-chave>
-        <disponiveis>0</disponiveis>
+        <disponiveis>2</disponiveis>
     </obra>
     <obra>
         <isbn>5354567</isbn>
