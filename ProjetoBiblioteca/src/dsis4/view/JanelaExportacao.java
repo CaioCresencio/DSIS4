@@ -13,9 +13,12 @@ import dsis4.relatorioPDF.GravadorPDF;
 import dsis4.xml.ManipuladorJAXB;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +27,7 @@ import javax.swing.JPanel;
  *
  * @author caio
  */
-public class JanelaExportacao extends JanelaPadrao {
+public class JanelaExportacao extends JanelaPadrao  implements ActionListener{
     
     private JPanel panelPrincipal;
     private JPanel panel1;
@@ -32,6 +35,8 @@ public class JanelaExportacao extends JanelaPadrao {
     private JButton botaoXML;
     private JButton botaoJSON;
     private JLabel textoExportacao;
+    private ButtonGroup grupo;
+    private JLabel labelGravador;
     
     private ObraDAO obraDAO;
     
@@ -43,6 +48,9 @@ public class JanelaExportacao extends JanelaPadrao {
     }
     
     private void carregarComponentes(){
+        comboGravador = new JComboBox();
+        labelGravador = new JLabel("Selecione o gravador específico:");
+        
         panelPrincipal = new JPanel(super.layout);
         panel1 = new JPanel(super.layout);
         javax.swing.border.Border border = BorderFactory.createEtchedBorder();
@@ -62,7 +70,7 @@ public class JanelaExportacao extends JanelaPadrao {
         
         fixarComponentes();
         
-    }
+    }private JComboBox comboGravador;
     private void fixarComponentes(){
         adicionarComponente(textoExportacao, 0,0,GridBagConstraints.CENTER, 4, 1,GridBagConstraints.BOTH, panel1);
         adicionarComponente(botaoPDF, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
@@ -92,6 +100,11 @@ public class JanelaExportacao extends JanelaPadrao {
         ManipuladorGson m = new ManipuladorGson("exportacao.json");
         m.gravar(obraDAO.listarObras());
         JOptionPane.showMessageDialog(null, "Exportação JSON realizada!");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        
     }
     
 }

@@ -57,7 +57,7 @@ public class JanelaCarregamento extends JanelaPadrao{
         ImageIcon icon = new ImageIcon("imgs/icon_pesquisa.png");
         botaoCaminho = new JButton("Procurar",icon);
         botaoCaminho.addActionListener(this::adicionarArquivo);
-         
+        
         ImageIcon icon_c = new ImageIcon("imgs/icon_pesquisa.png");
         botaoCarregar = new JButton("Carregar",icon_c);
         botaoCarregar.addActionListener(this::carregarArquivo);
@@ -69,7 +69,7 @@ public class JanelaCarregamento extends JanelaPadrao{
         adicionarComponente(botaoCarregar, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painelBotao);
         adicionarComponente(painelBotao, 1,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,painel);
         adicionarComponente(painel, 0,0, GridBagConstraints.WEST, 1, 1,GridBagConstraints.BOTH,this);
-        
+       
     }
     private void adicionarArquivo(ActionEvent e){
         chooser = new JFileChooser();
