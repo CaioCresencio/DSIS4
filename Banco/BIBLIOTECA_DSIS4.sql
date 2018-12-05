@@ -5,10 +5,16 @@ WHERE prontuario = 1710052;
 
 INSERT INTO emprestimo (codigo_emp,data_dev,data_emp,status,codigo_exemplar,prontuario_leitor,prontuario_func)
 VALUES (1,'25-10-2018','23-10-2018','EM ANDAMENTO',1,1710052,1);
- 
+INSERT INTO emprestimo (codigo_emp,data_dev,data_emp,status,codigo_exemplar,prontuario_leitor,prontuario_func)
+VALUES (2,'25-10-2018','23-10-2018','EM ANDAMENTO',2,1710052,1);
+
+insert into exemplar values(1,'DISPONIVEL',1,1);
+insert into exemplar values(2,'DISPONIVEL',1,2);
+insert into exemplar values(3,'DISPONIVEL',1,3);
  
 select * from obra_literaria;
 select * from emprestimo;
+select * from devolucao;
 UPDATE emprestimo SET data_dev = '25-11-18', status = 'EM ANDAMENTO' where codigo_emp = 2;
 UPDATE exemplar SET status = 'EMPRESTADO' WHERE status = 'DISPONIVEL' AND codigo_exemplar = 1;
 select * from exemplar;
