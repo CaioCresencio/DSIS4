@@ -58,7 +58,7 @@ public class ManipuladorGson implements AlgoritmoLeituraJson, AlgoritmoGravacaoJ
         return t;
     }
     
-      
+    @Override
     public void gravar(Object object){
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

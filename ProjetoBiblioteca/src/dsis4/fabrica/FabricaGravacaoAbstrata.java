@@ -22,6 +22,6 @@ public abstract class FabricaGravacaoAbstrata {
         return fabrica;
     }
     
-    public abstract AlgoritmoGravacao getAlgoritmo(String leitor, String arquivo);
+    public abstract AlgoritmoGravacao getAlgoritmo(String leitor);
     
 }

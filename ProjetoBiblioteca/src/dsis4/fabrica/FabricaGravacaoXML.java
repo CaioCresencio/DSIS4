@@ -6,20 +6,20 @@
 package dsis4.fabrica;
 
 import dsis4.entidades.ListaObra;
-import dsis4.json.ManipuladorGson;
 import dsis4.util.AlgoritmoGravacao;
+import dsis4.xml.ManipuladorJAXB;
 
 /**
  *
  * @author caio
  */
 public class FabricaGravacaoXML extends FabricaGravacaoAbstrata  {
-
+    String arquivo = "exportacao.xml";
     @Override
-    public AlgoritmoGravacao getAlgoritmo(String leitor, String arquivo) {
+    public AlgoritmoGravacao getAlgoritmo(String leitor) {
         AlgoritmoGravacao alg;
-        ManipuladorGson manipulador= new ManipuladorGson(arquivo);
-        manipulador.setClazz(ListaObra.class);
+        ManipuladorJAXB manipulador= new ManipuladorJAXB(arquivo);
+        manipulador.setClasses(ListaObra.class);
         alg = manipulador;
         
         return alg;

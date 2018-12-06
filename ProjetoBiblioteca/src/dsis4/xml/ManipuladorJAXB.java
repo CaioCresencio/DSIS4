@@ -1,5 +1,6 @@
 package dsis4.xml;
 
+import dsis4.util.AlgoritmoGravacaoXML;
 import dsis4.util.AlgoritmoLeituraXML;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
@@ -17,7 +18,7 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Gabriel
  */
-public class ManipuladorJAXB implements AlgoritmoLeituraXML{
+public class ManipuladorJAXB implements AlgoritmoLeituraXML, AlgoritmoGravacaoXML{
     
     private String arquivo;
     private Class[] classes;

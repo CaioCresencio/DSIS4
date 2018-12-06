@@ -6,16 +6,14 @@
 package dsis4.view;
 
 import dsis4.dao.ObraDAO;
-import dsis4.entidades.ListaObra;
+
 import dsis4.fabrica.FabricaGravacaoAbstrata;
-import dsis4.json.ManipuladorGson;
 import dsis4.relatorioPDF.GravadorPDF;
-import dsis4.xml.ManipuladorJAXB;
+import dsis4.util.AlgoritmoGravacao;
+import dsis4.util.TipoGravador;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,20 +21,22 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author caio
  */
-public class JanelaExportacao extends JanelaPadrao  implements ActionListener{
+public class JanelaExportacao extends JanelaPadrao {
     
     private JPanel panelPrincipal;
     private JPanel panel1;
     private JButton botaoPDF;
-    private JButton botaoXML;
-    private JButton botaoJSON;
+
+    private JButton botaoSelecionar;
     private JLabel textoExportacao;
-    private ButtonGroup grupo;
-    private JLabel labelGravador;
+ 
+    private JComboBox comboGravador;
+
     
     private ObraDAO obraDAO;
     
@@ -48,8 +48,7 @@ public class JanelaExportacao extends JanelaPadrao  implements ActionListener{
     }
     
     private void carregarComponentes(){
-        comboGravador = new JComboBox();
-        labelGravador = new JLabel("Selecione o gravador específico:");
+        comboGravador = new JComboBox(TipoGravador.getValues());
         
         panelPrincipal = new JPanel(super.layout);
         panel1 = new JPanel(super.layout);
@@ -59,23 +58,25 @@ public class JanelaExportacao extends JanelaPadrao  implements ActionListener{
         ImageIcon iconPDF = new ImageIcon("imgs/icon_pdf_m.png");
         ImageIcon iconXML = new ImageIcon("imgs/icon_xml.png");
         ImageIcon iconJSON = new ImageIcon("imgs/icon_json.png");
+        
+            
         botaoPDF = new JButton(iconPDF);
         botaoPDF.addActionListener(this::exportarPDF);
-        botaoXML = new JButton(iconXML);
-        botaoXML.addActionListener(this::exportarArquivo);
-        botaoJSON = new JButton(iconJSON);
-        botaoJSON.addActionListener(this::exportarArquivo);
+        botaoSelecionar = new JButton("Exportar XML/JSON");
+        botaoSelecionar.addActionListener(this::exportarArquivo);
+
         
         textoExportacao = new JLabel("Escolha uma opção de exportação");
         
         fixarComponentes();
         
-    }private JComboBox comboGravador;
+    }
+    
     private void fixarComponentes(){
         adicionarComponente(textoExportacao, 0,0,GridBagConstraints.CENTER, 4, 1,GridBagConstraints.BOTH, panel1);
         adicionarComponente(botaoPDF, 1,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
-        adicionarComponente(botaoXML, 1,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
-        adicionarComponente(botaoJSON, 1,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
+        adicionarComponente(comboGravador, 1,1, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
+        adicionarComponente(botaoSelecionar, 1,2, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panel1);
         adicionarComponente(panel1, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, panelPrincipal);
         adicionarComponente(panelPrincipal, 0,0, GridBagConstraints.CENTER, 1, 1,GridBagConstraints.BOTH, this);
     }
@@ -86,25 +87,13 @@ public class JanelaExportacao extends JanelaPadrao  implements ActionListener{
         JOptionPane.showMessageDialog(null, "Exportação PDF realizada!");
     }
     private void exportarArquivo(ActionEvent e){
-         FabricaGravacaoAbstrata fab2 = FabricaGravacaoAbstrata.getFabrica("");
-    }
-    
-    private void exportarXML(ActionEvent e){
-       ManipuladorJAXB m = new ManipuladorJAXB("exportacao.xml");
-       m.setClasses(ListaObra.class);
-       m.gravar(obraDAO.listarObras());
-       JOptionPane.showMessageDialog(null, "Exportação XML realizada!");
-    }
-    
-    private void exportarJSON(ActionEvent e){
-        ManipuladorGson m = new ManipuladorGson("exportacao.json");
-        m.gravar(obraDAO.listarObras());
-        JOptionPane.showMessageDialog(null, "Exportação JSON realizada!");
+       
+         FabricaGravacaoAbstrata fab = FabricaGravacaoAbstrata.getFabrica(TipoGravador.valueOf(comboGravador.getSelectedItem().toString()).getFormato());
+         AlgoritmoGravacao alg = fab.getAlgoritmo(comboGravador.getSelectedItem().toString());
+         alg.gravar(obraDAO.listarObras());
+         JOptionPane.showMessageDialog(this, "Exportado com sucesso!");
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        
-    }
+
     
 }
