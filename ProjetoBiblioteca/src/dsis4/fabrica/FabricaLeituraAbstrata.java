@@ -1,5 +1,6 @@
 package dsis4.fabrica;
 
+import dsis4.excecoes.ExcecaoLeitura;
 import dsis4.util.AlgoritmoLeitura;
 
 /*
@@ -15,13 +16,14 @@ import dsis4.util.AlgoritmoLeitura;
 public abstract class FabricaLeituraAbstrata {
     
     public static FabricaLeituraAbstrata getFabrica(String formato) {
-        FabricaLeituraAbstrata fabrica = new FabricaLeituraXML();
-        if(formato.equals("JSON")) {
+        FabricaLeituraAbstrata fabrica = null;
+        fabrica = new FabricaLeituraXML();
+        if(formato.equals("json")) {
             fabrica = new FabricaLeituraJSON();
         }
         return fabrica;
     }
     
-    public abstract AlgoritmoLeitura getAlgoritmo(String leitor, String arquivo);
+    public abstract AlgoritmoLeitura getAlgoritmo(String leitor, String arquivo) throws ExcecaoLeitura;
     
 }
