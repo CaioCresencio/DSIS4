@@ -5,18 +5,22 @@
  */
 package dsis4.view;
 
+import dsis4.excecoes.ExcecaoLeitura;
 import dsis4.fabrica.FabricaLeituraAbstrata;
 import dsis4.util.AlgoritmoLeitura;
 import dsis4.util.TipoArquivo;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -102,11 +106,20 @@ public class JanelaCarregamento extends JanelaPadrao{
             
         }
     }
+    
+    
+    
     private void carregarArquivo(ActionEvent e){
         fab = FabricaLeituraAbstrata.getFabrica(arrayExtensao[1]);
-        AlgoritmoLeitura algo = fab.getAlgoritmo(comboLeitor.getSelectedItem().toString(), nomeArquivo);
+        AlgoritmoLeitura algo;
+        try {
+            algo = fab.getAlgoritmo(comboLeitor.getSelectedItem().toString(), nomeArquivo);
+            System.out.println(algo.ler().toString());
+        } catch (ExcecaoLeitura ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+ 
         
-        System.out.println(algo.ler().toString());
     }
     
 }
