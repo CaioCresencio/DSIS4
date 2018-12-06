@@ -5,6 +5,7 @@ package dsis4.view;
 import dsis4.entidades.ListaObra;
 import dsis4.fabrica.FabricaGravacaoAbstrata;
 import dsis4.fabrica.FabricaLeituraAbstrata;
+import javax.swing.SwingUtilities;
 
 
 
@@ -47,7 +48,12 @@ public class Principal {
 //         DevolucaoDAO d = new DevolucaoDAO();
 //         d.devolver(1,1710125);
 
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JanelaPrincipal janela = new JanelaPrincipal();
+            }
+        });
         
          /*FabricaLeituraAbstrata fab = FabricaLeituraAbstrata.getFabrica("JSON");
          ListaObra lista  = (ListaObra)fab.getAlgoritmo("GSON","exportacao.json").ler();

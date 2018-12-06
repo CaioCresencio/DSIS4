@@ -65,21 +65,24 @@ public class JanelaPrincipal extends JFrame{
         
         menu.add(cadastrarObras);
         cadastrarObras.addActionListener(this::abrirJanelaCadastro);
-        menu.add(carregarObras);
-        carregarObras.addActionListener(this::abrirJanelaCarregar);
+        cadastrarObras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         menu.add(emprestimo);
         emprestimo.addActionListener(this::abrirJanelaEmprestimo);
+        emprestimo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         menu.add(devolucao);
         devolucao.addActionListener(this::abrirJanelaDevoulcao);
-        menu.add(consultas);
-        consultas.addActionListener(this::abrirJanelaConsultas);
-        
+        devolucao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+       
         menuArquivos.add(exportacao);
         exportacao.addActionListener(this::abrirJanelaExportacao);
-        menuArquivos.add(carregarArquivo);
-        carregarArquivo.addActionListener(this::abrirJanelaArquivo);
+        exportacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menuArquivos.add(carregarObras);
+        carregarObras.addActionListener(this::abrirJanelaCarregar);
+        carregarObras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+ 
         menu.add(relatorioPendente);
         relatorioPendente.addActionListener(this::abrirJanelaRelatorio);
+        relatorioPendente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         
         
         barra.add(menu);
@@ -106,17 +109,14 @@ public class JanelaPrincipal extends JFrame{
         JanelaDevolucao jd = new JanelaDevolucao("Devolucao de obras");
         carregarJanela(jd);
     }
-    public void abrirJanelaConsultas(ActionEvent e){
-        
-    }
     public void abrirJanelaExportacao(ActionEvent e){
         JanelaExportacao je = new JanelaExportacao("---Exportação---");
         carregarJanela(je);
     }
-    public void abrirJanelaArquivo(ActionEvent e){
-        JanelaArquivos jXML = new JanelaArquivos("Carregamento de arquivo");
-        carregarJanela(jXML);
-    }
+//    public void abrirJanelaArquivo(ActionEvent e){
+//        JanelaArquivos jXML = new JanelaArquivos("Carregamento de arquivo");
+//        carregarJanela(jXML);
+//    }
     
     public void abrirJanelaRelatorio(ActionEvent e){
         JanelaRelatorio jr = new JanelaRelatorio("Janela de Relatorio");
