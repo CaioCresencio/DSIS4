@@ -7,9 +7,12 @@ package dsis4.fabrica;
 
 
 import dsis4.entidades.ListaObra;
+import dsis4.entidades.ObraLiteraria;
+import dsis4.excecoes.ExcecaoLeitorGson;
+import dsis4.excecoes.ExcecaoLeitura;
 import dsis4.json.ManipuladorGson;
+import dsis4.json.ManipuladorJackson;
 import dsis4.util.AlgoritmoLeitura;
-import dsis4.xml.LeitorDOM;
 
 
 /**
@@ -19,15 +22,21 @@ import dsis4.xml.LeitorDOM;
 public class FabricaLeituraJSON extends FabricaLeituraAbstrata{
 
     @Override
-    public AlgoritmoLeitura getAlgoritmo(String leitor, String arquivo) {
+    public AlgoritmoLeitura getAlgoritmo(String leitor, String arquivo) throws ExcecaoLeitura{
         AlgoritmoLeitura algo = null; 
-        ManipuladorGson m = new ManipuladorGson (arquivo);
-        m.setClazz(ListaObra.class);
-        algo = m;
         
-        if(leitor.equals("JACKSON")){
-            algo = new LeitorDOM(arquivo);
+        if(leitor.equals("GSON")){    
+            ManipuladorGson m = new ManipuladorGson (arquivo);
+            m.setClazz(ListaObra.class);
+            algo = m;
+        }else if(leitor.equals("JACKSON")){
+                ManipuladorJackson mJ = new ManipuladorJackson (arquivo);
+                mJ.setClazz(ObraLiteraria.class);
+                algo = new ManipuladorJackson(arquivo);
+        }else{
+            throw new ExcecaoLeitorGson();
         }
+        
         
         return algo;
     
