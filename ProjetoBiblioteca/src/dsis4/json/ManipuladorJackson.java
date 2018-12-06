@@ -19,6 +19,7 @@ import dsis4.util.AlgoritmoLeituraJson;
  */
 public class ManipuladorJackson implements AlgoritmoGravacaoJson, AlgoritmoLeituraJson{
     private String arquivo;
+    private Class clazz;
     
     
     public ManipuladorJackson(String arquivo){
@@ -39,7 +40,8 @@ public class ManipuladorJackson implements AlgoritmoGravacaoJson, AlgoritmoLeitu
         ListaObra lista;
         ObjectMapper mapper = new ObjectMapper();
         try{
-             mapper.readValue("obra.json",ObraLiteraria.class);
+             mapper.readValue(arquivo,clazz);
+             
             //System.out.println(lista.toString());
         }catch(IOException e){
             throw new RuntimeException(e);
@@ -47,8 +49,8 @@ public class ManipuladorJackson implements AlgoritmoGravacaoJson, AlgoritmoLeitu
         return new Object();
     }
     
-    
-    
-     
-    
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
+    }
+
 }

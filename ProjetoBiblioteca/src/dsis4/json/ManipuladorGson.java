@@ -85,6 +85,4 @@ public class ManipuladorGson implements AlgoritmoLeituraJson, AlgoritmoGravacaoJ
         this.clazz = clazz;
     }
 
- 
-    
 }
