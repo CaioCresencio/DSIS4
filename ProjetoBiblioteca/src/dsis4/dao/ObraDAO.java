@@ -24,24 +24,26 @@ import java.util.List;
 public class ObraDAO {
     
     public void salvar(ObraLiteraria o){
+        CategoriaObraDAO catDAO = new CategoriaObraDAO();
         String sql = "INSERT INTO obra_literaria(id_obra, isbn, qtd_exemplares,nrm_edicao, data_publicacao,editora, titulo_obra,codigo_categoria)"
                 + " VALUES (seq_obraLiteraria.nextval,?,?,?,?,?,?,?)";
         
         try(Connection con = ConexaoBD.getInstance().getConnection()){
             if(!verificaObra(con, o.getIsbn())){
                 try(PreparedStatement pStat = con.prepareStatement(sql,new String[]{"id_obra"})){
-
+                   
                     con.setAutoCommit(false);
-
+                    int categoria = catDAO.getCodigo(con,o.getCategoria().getDescricao());//busca o codigo da categoria
+                    System.out.println(categoria);
                     pStat.setString(1, o.getIsbn());//Consideranco que o isbn pode conter caracteres
                     pStat.setInt(2, o.getQtdExemplares());
                     pStat.setInt(3, o.getNrmEdicao());
                     pStat.setDate(4,java.sql.Date.valueOf(o.getDataPublicacao()) );
                     pStat.setString(5,o.getEditora());
                     pStat.setString(6, o.getTitulo());
-                    pStat.setInt(7, o.getCategoria().getCodigoCategoria());
+                    pStat.setInt(7, categoria);
                     pStat.executeUpdate();
-
+                    
                     int id_obra = getPKObra(pStat,con);
                     o.setIdObra(id_obra);
                     
@@ -133,10 +135,13 @@ public class ObraDAO {
     }
      
     private void salvarExemplar(Connection con, ObraLiteraria o){
-             
+        if(o.getQtdExemplares() == 0){
+            o.setQtdExemplares(1);
+        }     
         ExemplarDAO exDAO = new ExemplarDAO();     
         
         for(int i = 1; i <= o.getQtdExemplares(); i++){
+            
             exDAO.salvar(o.getIdObra(), i, con);
         }
         

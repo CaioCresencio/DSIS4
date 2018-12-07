@@ -104,6 +104,7 @@ public class ObraLiteraria {
         this.categoria = categoria;
         this.autores = autores;
         this.palavraChave = palavrasChave;
+        
     }
     public ObraLiteraria(int idObra, String isbn,int qtdExemplares, int nrmEdicao,LocalDate dataPublicacao,String editora,String titulo,CategoriaObra categoria,List<String> autores, List<String> palavrasChave, int qtdDisponiveis){
         this.idObra = idObra;

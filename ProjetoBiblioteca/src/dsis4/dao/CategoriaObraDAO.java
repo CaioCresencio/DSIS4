@@ -50,4 +50,22 @@ public class CategoriaObraDAO {
         return lista;
     }
     
+    public int getCodigo(Connection con, String descricao){
+        String sql = "SELECT codigo_categoria FROM categoria_literaria WHERE descricao = ?";
+        int codigo = 0;
+        try(PreparedStatement pStat = con.prepareStatement(sql)){
+            
+            pStat.setString(1, descricao);
+            pStat.executeUpdate();
+            try(ResultSet rs = pStat.executeQuery()){
+                if(rs.next()){
+                    codigo = rs.getInt(1);
+                }
+            }
+        }catch(SQLException erro){
+            throw new RuntimeException(erro);
+        }
+        return codigo;
+    }
+    
 }
