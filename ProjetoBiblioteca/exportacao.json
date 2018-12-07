@@ -15,24 +15,7 @@
         "Paul Deitel",
         "Harvey Deitel"
       ],
-   
-    },
-    {
-      "isbn": "9788543004",
-      "edicao": 10,
-      "data": "30-09-2016",
-      "editora": "Pearson Prentice Hall",
-      "titulo": "Java: como programar",
-      "categoria": "livro",
-      "autores": [
-        "Paul Deitel",
-        "Harvey Deitel"
-      ],
-      "palavras-chave": [
-        "Paul Deitel",
-        "Harvey Deitel"
-      ],
-      
+      "disponiveis": 1
     },
     {
       "isbn": "9788543004792",
@@ -49,7 +32,39 @@
         "Paul Deitel",
         "Harvey Deitel"
       ],
-      
+      "disponiveis": 1
+    },
+    {
+      "isbn": "9788543004",
+      "edicao": 10,
+      "data": "30-09-2016",
+      "editora": "Pearson Prentice Hall",
+      "titulo": "Java: como programar",
+      "categoria": "livro",
+      "autores": [
+        "Paul Deitel",
+        "Harvey Deitel"
+      ],
+      "palavras-chave": [
+        "Paul Deitel",
+        "Harvey Deitel"
+      ],
+      "disponiveis": 1
+    },
+    {
+      "isbn": "141411",
+      "edicao": 5,
+      "data": "12-06-2018",
+      "editora": "Javaldo",
+      "titulo": "teste",
+      "categoria": "revista",
+      "autores": [
+        "PEROVALDO"
+      ],
+      "palavras-chave": [
+        "PEROVALDO"
+      ],
+      "disponiveis": 2
     }
   ]
 }

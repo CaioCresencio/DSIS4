@@ -1,7 +1,7 @@
 {
   "obras": [
     {
-      "isbn": "9213",
+      "isbn": "92111123",
       "edicao": 10,
       "data": "30-09-2016",
       "editora": "Pearson Prentice Hall",
@@ -18,7 +18,7 @@
       "disponiveis": 1
     },
     {
-      "isbn": "9788543004",
+      "isbn": "97885243004",
       "edicao": 10,
       "data": "30-09-2016",
       "editora": "Pearson Prentice Hall",
@@ -35,7 +35,7 @@
       "disponiveis": 1
     },
     {
-      "isbn": "9788543004792",
+      "isbn": "97885434004792",
       "edicao": 10,
       "data": "30-09-2016",
       "editora": "Pearson Prentice Hall",

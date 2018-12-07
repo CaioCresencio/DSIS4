@@ -31,7 +31,9 @@ public class ObraDAO {
         try(Connection con = ConexaoBD.getInstance().getConnection()){
             if(!verificaObra(con, o.getIsbn())){
                 try(PreparedStatement pStat = con.prepareStatement(sql,new String[]{"id_obra"})){
-                   
+                    if(o.getQtdExemplares() == 0){
+                         o.setQtdExemplares(1);
+                     }     
                     con.setAutoCommit(false);
                     int categoria = catDAO.getCodigo(con,o.getCategoria().getDescricao());//busca o codigo da categoria
                     System.out.println(categoria);
@@ -135,9 +137,7 @@ public class ObraDAO {
     }
      
     private void salvarExemplar(Connection con, ObraLiteraria o){
-        if(o.getQtdExemplares() == 0){
-            o.setQtdExemplares(1);
-        }     
+       
         ExemplarDAO exDAO = new ExemplarDAO();     
         
         for(int i = 1; i <= o.getQtdExemplares(); i++){

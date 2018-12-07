@@ -17,6 +17,22 @@
         </palavras-chave>
     </obra>
     <obra>
+        <isbn>9788543004792</isbn>
+        <edicao>10</edicao>
+        <data>30/09/2016</data>
+        <editora>Pearson Prentice Hall</editora>
+        <titulo>Java: como programar</titulo>
+        <categoria>livro</categoria>
+        <autores>
+            <autor>Paul Deitel</autor>
+            <autor>Harvey Deitel</autor>
+        </autores>
+        <palavras-chave>
+            <palavra-chave>Paul Deitel</palavra-chave>
+            <palavra-chave>Harvey Deitel</palavra-chave>
+        </palavras-chave>
+    </obra>
+    <obra>
         <isbn>9788543004</isbn>
         <edicao>10</edicao>
         <data>30/09/2016</data>
@@ -33,19 +49,17 @@
         </palavras-chave>
     </obra>
     <obra>
-        <isbn>9788543004792</isbn>
-        <edicao>10</edicao>
-        <data>30/09/2016</data>
-        <editora>Pearson Prentice Hall</editora>
-        <titulo>Java: como programar</titulo>
-        <categoria>livro</categoria>
+        <isbn>141411</isbn>
+        <edicao>5</edicao>
+        <data>12/06/2018</data>
+        <editora>Javaldo</editora>
+        <titulo>teste</titulo>
+        <categoria>revista</categoria>
         <autores>
-            <autor>Paul Deitel</autor>
-            <autor>Harvey Deitel</autor>
+            <autor>PEROVALDO</autor>
         </autores>
         <palavras-chave>
-            <palavra-chave>Paul Deitel</palavra-chave>
-            <palavra-chave>Harvey Deitel</palavra-chave>
+            <palavra-chave>PEROVALDO</palavra-chave>
         </palavras-chave>
     </obra>
 </obras>
