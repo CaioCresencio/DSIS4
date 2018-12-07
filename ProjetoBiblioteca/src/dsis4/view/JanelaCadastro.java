@@ -212,10 +212,13 @@ public class JanelaCadastro extends JanelaPadrao {
     }
     
     private void cadastraObra(ActionEvent e){
-        limparCampos();
+        
         if(validaCampos()){
             obraDAO.salvar(obterCampos());
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
         }
+        
+        limparCampos();
        
     }
     
@@ -234,8 +237,8 @@ public class JanelaCadastro extends JanelaPadrao {
         numeroExemplares.setText("");
         fieldPc.setText("");
         fieldAutores.setText("");
-        modelo.setColumnCount(0);
-        modeloPc.setColumnCount(0);
+        modelo.setNumRows(0);
+        modeloPc.setNumRows(0);
         listaPalavras.clear();
         listaAutores.clear();
     }
@@ -274,7 +277,7 @@ public class JanelaCadastro extends JanelaPadrao {
     }
     private boolean validaCampos(){
         boolean validacao = false;
-        //System.out.println(ISBN.getText().length());
+        
         if(ISBN.getText().length() > 0 && editora.getText().length() > 0
                && titulo.getText().length() > 0 && calendario.getDate() != null
                 && numeroEdicao.getText().length() > 0 && numeroExemplares.getText().length() > 0){
