@@ -7,11 +7,14 @@ package dsis4.view;
 
 import dsis4.dao.EmprestimoDAO;
 import dsis4.entidades.Exemplar;
+import dsis4.excecoes.ExcecaoEmprestimo;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -135,9 +138,16 @@ public class JanelaEmprestimo extends JanelaPadrao {
             if(listaE != null){
                 int prontuarioL = Integer.parseInt(fieldLeitor.getText());
                 int prontuarioF = Integer.parseInt(fieldFuncionario.getText());
-                emprestimoDAO.salvar(prontuarioL, listaE,prontuarioF);
+                try {
+                    emprestimoDAO.salvar(prontuarioL, listaE,prontuarioF);
+                    JOptionPane.showMessageDialog(null, "Emprestimo realizado com Sucesso");
+                } catch (ExcecaoEmprestimo ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                }  
             }
         }
+        
+        limparCampos();
     }
     
     private List<Integer> getExemplares(){
@@ -169,6 +179,35 @@ public class JanelaEmprestimo extends JanelaPadrao {
         }
     }
     
+    private boolean validaCampos(){
+        boolean validacao = false;
+        
+        if(fieldExemplar.getText().length() > 0 && fieldLeitor.getText().length() > 0
+               && fieldFuncionario.getText().length() > 0){
+            validacao = true;
+            
+            try{
+               int validaEdicao  = Integer.parseInt(fieldLeitor.getText());  
+            }catch(NumberFormatException e){
+              JOptionPane.showMessageDialog(null,"Numero de prontuario invalido!");
+              validacao = false;
+            }
+            try{
+               int validaExemplares = Integer.parseInt(fieldExemplar.getText());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Numero de exemplares invalido!");
+                validacao = false;
+            }
+        }else{
+          JOptionPane.showMessageDialog(null,"Existem campos não preenchidos!");
+        }
+            
+       return validacao;
+    }
     
+    private void limparCampos(){
+        fieldExemplar.setText("");
+        model.setNumRows(0);
+    }
     
 }
