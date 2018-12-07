@@ -12,7 +12,13 @@ insert into exemplar values(1,'DISPONIVEL',1,1);
 insert into exemplar values(2,'DISPONIVEL',1,2);
 insert into exemplar values(3,'DISPONIVEL',1,3);
  
+SELECT codigo_categoria FROM categoria_literaria WHERE descricao = UPPER('livro');
+ 
+SELECt seq_obraLiteraria.currval from dual;
+drop sequence seq_obraLiteraria;
 select * from obra_literaria;
+
+UPDATE obra_literaria set isbn  = 9722123213 where qtd_exemplares = 1;
 select * from emprestimo;
 select * from devolucao;
 UPDATE emprestimo SET data_dev = '25-11-18', status = 'EM ANDAMENTO' where codigo_emp = 2;
@@ -21,6 +27,7 @@ select * from exemplar;
 select * from funcionario;
 select * from leitor;
 
+UPDATE leitor set STATUS = 'DISPONIVEL';
 SELECT COUNT(codigo_emp) FROM emprestimo WHERE status = 'EM ANDAMENTO' AND prontuario_leitor = 1710052 AND 
 codigo_exemplar = (SELECT codigo_exemplar FROM obra_literaria JOIN(exemplar) USING (codigo_exemplar));
 

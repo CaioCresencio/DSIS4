@@ -97,7 +97,7 @@ maxvalue 9999;
 
 CREATE TABLE palavra_chave(
     id_palavra INT PRIMARY KEY,
-    conteudo VARCHAR2(20)NOT NULL
+    conteudo VARCHAR2(200)NOT NULL
 );
 
 CREATE SEQUENCE seq_autor

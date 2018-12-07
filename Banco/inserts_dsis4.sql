@@ -5,47 +5,28 @@ DELETE FROM categoria_literaria;
 
 INSERT INTO categoria_literaria 
 (codigo_categoria,descricao)
-VALUES(seq_catLiteraria.nextval,'Livro');
+VALUES(seq_catLiteraria.nextval,'livro');
 
 INSERT INTO categoria_literaria 
 (codigo_categoria,descricao)
-VALUES(seq_catLiteraria.nextval,'Revista');
+VALUES(seq_catLiteraria.nextval,'revista');
 
 INSERT INTO categoria_literaria 
 (codigo_categoria,descricao)
-VALUES(seq_catLiteraria.nextval,'Jornal');
+VALUES(seq_catLiteraria.nextval,'jornal');
 
 INSERT INTO categoria_literaria 
 (codigo_categoria,descricao)
-VALUES(seq_catLiteraria.nextval,'Relatório técnico');
+VALUES(seq_catLiteraria.nextval,'relatorio tecnico');
 
 INSERT INTO categoria_literaria 
 (codigo_categoria,descricao)
-VALUES(seq_catLiteraria.nextval,'Trabalho acadêmico');
+VALUES(seq_catLiteraria.nextval,'trabalho academico');
 
 SELECT * FROM categoria_literaria;
 -- OBRA
 DELETE obra_literaria;
 
-INSERT INTO obra_literaria
-(id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
-VALUES(seq_obraLiteraria.nextval,'123ACD',5,1,'25-05-2003','Sabugosa','Java como Programar',1);
-
-INSERT INTO obra_literaria
-(id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
-VALUES(seq_obraLiteraria.nextval,'321DCA',3,3,'20-09-2001','Sabugosa NEW','PHP como sofrer',1);
-
-INSERT INTO obra_literaria
-(id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
-VALUES(seq_obraLiteraria.nextval,'456DBA',2,5,'15-02-2012','Sabugosa NEW','C como sofrer, a revolta!',1);
-
-INSERT INTO obra_literaria
-(id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
-VALUES(seq_obraLiteraria.nextval,'333BBA',4,1,'21-10-2015','IFSP','Jogos educacionais',5);
-
-INSERT INTO obra_literaria
-(id_obra,isbn,qtd_exemplares,nrm_edicao,data_publicacao,editora,titulo_obra,codigo_categoria)
-VALUES(seq_obraLiteraria.nextval,'335CAA',4,1,'12-01-2011','IFSP','Auto ajuda para ADS',5);
 
 
 -- CATEGORIA LEITOR
