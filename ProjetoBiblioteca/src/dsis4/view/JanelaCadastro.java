@@ -285,7 +285,7 @@ public class JanelaCadastro extends JanelaPadrao {
             
             try{
                int validaEdicao  = Integer.parseInt(numeroEdicao.getText());
-                System.out.println("teste");
+                
             }catch(NumberFormatException e){
               JOptionPane.showMessageDialog(null,"Numero de edição invalido!");
               validacao = false;
