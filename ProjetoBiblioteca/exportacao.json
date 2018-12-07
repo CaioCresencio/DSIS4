@@ -1,112 +1,55 @@
 {
   "obras": [
     {
-      "isbn": "123456",
-      "edicao": 0,
-      "data": "25-11-2018",
-      "editora": "Castanha",
-      "titulo": "JAsvaldo",
-      "categoria": "Livro",
+      "isbn": "9213",
+      "edicao": 10,
+      "data": "30-09-2016",
+      "editora": "Pearson Prentice Hall",
+      "titulo": "Java: como programar",
+      "categoria": "livro",
       "autores": [
-        "euton"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
       "palavras-chave": [
-        "euton"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
-      "disponiveis": 1
+   
     },
     {
-      "isbn": "1234567",
-      "edicao": 0,
-      "data": "25-11-2018",
-      "editora": "Teste",
-      "titulo": "Aldo",
-      "categoria": "Livro",
+      "isbn": "9788543004",
+      "edicao": 10,
+      "data": "30-09-2016",
+      "editora": "Pearson Prentice Hall",
+      "titulo": "Java: como programar",
+      "categoria": "livro",
       "autores": [
-        "Jovens"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
       "palavras-chave": [
-        "Jovens"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
-      "disponiveis": 1
+      
     },
     {
-      "isbn": "4567",
-      "edicao": 0,
-      "data": "25-11-2018",
-      "editora": "Tste2",
-      "titulo": "oloco",
-      "categoria": "Livro",
+      "isbn": "9788543004792",
+      "edicao": 10,
+      "data": "30-09-2016",
+      "editora": "Pearson Prentice Hall",
+      "titulo": "Java: como programar",
+      "categoria": "livro",
       "autores": [
-        "Jovens"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
       "palavras-chave": [
-        "Jovens"
+        "Paul Deitel",
+        "Harvey Deitel"
       ],
-      "disponiveis": 2
-    },
-    {
-      "isbn": "5354567",
-      "edicao": 0,
-      "data": "25-11-2018",
-      "editora": "Tste3",
-      "titulo": "bicho",
-      "categoria": "Livro",
-      "autores": [
-        "Jovens"
-      ],
-      "palavras-chave": [
-        "Jovens"
-      ],
-      "disponiveis": 2
-    },
-    {
-      "isbn": "456DBA",
-      "edicao": 5,
-      "data": "15-02-2012",
-      "editora": "Sabugosa NEW",
-      "titulo": "C como sofrer, a revolta!",
-      "categoria": "Livro",
-      "autores": [],
-      "palavras-chave": [],
-      "disponiveis": 0
-    },
-    {
-      "isbn": "321DCA",
-      "edicao": 3,
-      "data": "20-09-2001",
-      "editora": "Sabugosa NEW",
-      "titulo": "PHP como sofrer",
-      "categoria": "Livro",
-      "autores": [],
-      "palavras-chave": [],
-      "disponiveis": 0
-    },
-    {
-      "isbn": "12312512",
-      "edicao": 0,
-      "data": "10-12-2018",
-      "editora": "TESTE",
-      "titulo": "Osvaldo",
-      "categoria": "Jornal",
-      "autores": [
-        "Caiera"
-      ],
-      "palavras-chave": [
-        "Caiera"
-      ],
-      "disponiveis": 2
-    },
-    {
-      "isbn": "333BBA",
-      "edicao": 1,
-      "data": "21-10-2015",
-      "editora": "IFSP",
-      "titulo": "Jogos educacionais",
-      "categoria": "Trabalho acadêmico",
-      "autores": [],
-      "palavras-chave": [],
-      "disponiveis": 0
+      
     }
   ]
 }

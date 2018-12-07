@@ -129,9 +129,31 @@ public class JanelaDevolucao extends JanelaPadrao{
     private void geraDevolucao(ActionEvent e){
         
         int pront = Integer.parseInt(fieldProntuario.getText());
+        if(validaCampos()){
+            dDAO.geraDevolucao(exemplares, pront);
+            JOptionPane.showMessageDialog(null,"Devolvido com sucesso!");
+            limparCampos();
+        }
+    }
+    private boolean validaCampos(){
+        boolean validacao = false;
         
-        dDAO.geraDevolucao(exemplares, pront);
-        
+        if( fieldProntuario.getText().length() > 0 && exemplares.size() > 0){
+            validacao = true;
+            
+            try{
+               int validaEdicao  = Integer.parseInt(fieldProntuario.getText());  
+            }catch(NumberFormatException e){
+              JOptionPane.showMessageDialog(null,"Numero de prontuario invalido!");
+              validacao = false;
+            }
+            
+            
+        }else{
+          JOptionPane.showMessageDialog(null,"Existem campos não preenchidos!");
+        }
+            
+       return validacao;
     }
     
     private void adicionarExemplar(ActionEvent e){
@@ -172,6 +194,12 @@ public class JanelaDevolucao extends JanelaPadrao{
         if(model.getRowCount() > 0){
             model.removeRow(model.getColumnCount()-1);
         }
+    }
+    private void limparCampos(){
+        fieldProntuario.setText("");
+        fieldCodigoEx.setText("");
+        exemplares = new ArrayList<>();
+        model.setNumRows(0);
     }
     
 }

@@ -67,13 +67,13 @@ public class DevolucaoDAO {
             try(PreparedStatement pStat2 = con.prepareStatement(sql_emprestimo)){
                 pStat2.setInt(1, exemplar);
                 pStat2.executeUpdate();
-                System.out.println("eita");
+              
                 try(PreparedStatement pStat3 = con.prepareStatement(sql_devolucao)){
                     pStat3.setInt(1, cod_emprestimo);
                     pStat3.setInt(2, exemplar);
                     pStat3.setInt(3, prontuario_l);
                     pStat3.executeUpdate();
-                    System.out.println("eita2");
+                
                 }
             }catch(SQLException e){
                 throw new RuntimeException(e);
