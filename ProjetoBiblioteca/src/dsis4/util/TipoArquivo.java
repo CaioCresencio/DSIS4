@@ -16,8 +16,8 @@ public enum TipoArquivo {
     JAXB("XML"),
     GSON("JSON"),
     SAX("XML"),
-    DOM("XML"),
-    JACKSON("JSON");
+    DOM("XML");
+    //JACKSON("JSON");
     
     //Poderia haver outros gravadores na aplicação
     
