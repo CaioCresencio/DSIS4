@@ -132,7 +132,7 @@ public class JanelaEmprestimo extends JanelaPadrao {
     private void cadastrarExemplares(ActionEvent e){
         List<Integer> lista = getExemplares();
         
-        if( lista.size() > 0){
+        if( lista.size() > 0 && validaCampos()){
             List<Exemplar> listaE;
             listaE = emprestimoDAO.getListExemplares(lista);
             if(listaE != null){
@@ -182,20 +182,19 @@ public class JanelaEmprestimo extends JanelaPadrao {
     private boolean validaCampos(){
         boolean validacao = false;
         
-        if(fieldExemplar.getText().length() > 0 && fieldLeitor.getText().length() > 0
-               && fieldFuncionario.getText().length() > 0){
+        if(fieldLeitor.getText().length() > 0 && fieldFuncionario.getText().length() > 0){
             validacao = true;
             
             try{
                int validaEdicao  = Integer.parseInt(fieldLeitor.getText());  
             }catch(NumberFormatException e){
-              JOptionPane.showMessageDialog(null,"Numero de prontuario invalido!");
+              JOptionPane.showMessageDialog(null,"Numero de prontuario do leitor invalido!");
               validacao = false;
             }
             try{
-               int validaExemplares = Integer.parseInt(fieldExemplar.getText());
+               int validaExemplares = Integer.parseInt(fieldFuncionario.getText());
             }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Numero de exemplares invalido!");
+                JOptionPane.showMessageDialog(null,"Numero de prontuario do funcionario invalido!");
                 validacao = false;
             }
         }else{
@@ -206,7 +205,8 @@ public class JanelaEmprestimo extends JanelaPadrao {
     }
     
     private void limparCampos(){
-        fieldExemplar.setText("");
+        fieldLeitor.setText("");
+        fieldFuncionario.setText("");
         model.setNumRows(0);
     }
     
