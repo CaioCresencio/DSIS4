@@ -7,6 +7,7 @@ package dsis4.dao;
 
 import dsis4.banco.ConexaoBD;
 import dsis4.entidades.Exemplar;
+import dsis4.excecoes.ExcecaoEmprestimo;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ import java.util.Map;
  */
 public class EmprestimoDAO {
     
-    public void salvar(int prontuarioL, List<Exemplar> exemplares, int prontuario_func){
+    public void salvar(int prontuarioL, List<Exemplar> exemplares, int prontuario_func) throws ExcecaoEmprestimo{
         String sql = "INSERT INTO emprestimo (codigo_emp,data_dev,data_emp,status,codigo_exemplar,prontuario_leitor,prontuario_func)" +
                         "VALUES (seq_emprestimo.nextval,?,?,'EM ANDAMENTO',?,?,?)";
         
@@ -51,13 +52,14 @@ public class EmprestimoDAO {
 
                     con.commit();
 
-                    System.out.println("Salvo com sucesso!");
+                    
                 }catch(SQLException erro){
                     con.rollback();
-                    throw new RuntimeException(erro);
+                    //throw new RuntimeException(erro);
+                    throw new ExcecaoEmprestimo();
                 }
             }else{
-                System.out.println("Erro");
+                throw new ExcecaoEmprestimo();
             }
             
         }catch(SQLException e){
